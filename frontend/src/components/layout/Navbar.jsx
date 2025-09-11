@@ -6,7 +6,7 @@ const Navbar = ({ role }) => {
   const navItems = navigation[role] || [];
 
   return (
-    <aside className="w-50 min-h-screen p-4 rounded-r-xl shadow-md">
+    <aside className="w-56 min-h-screen p-4 rounded-r-xl shadow-md">
       <div className="mb-8 flex flex-col items-center">
         <img src={logo} alt="Logo" className="h-16 w-auto" />
       </div>
