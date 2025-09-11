@@ -9,7 +9,7 @@ const Table = ({ columns, data }) => {
             {columns.map((col) => (
               <th
                 key={col.key}
-                className="px-6 py-3 text-xs font-lg text-gray-400 uppercase tracking-wider"
+                className="text-left px-6 py-3 text-xs font-lg text-gray-400 uppercase tracking-wider"
               >
                 {col.label}
               </th>
