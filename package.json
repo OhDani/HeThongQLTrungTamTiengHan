@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/OhDani/HeThongQLTrungTamTiengHan#readme",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "json-server": "^1.0.0-beta.3"
   }
 }
