@@ -1,0 +1,25 @@
+{
+  "name": "hethongqltrungtamtienghan",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:frontend": "cd frontend && npm run dev",
+    "start:backend": "cd backend && npx json-server --watch db.json --port 3001",
+    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OhDani/HeThongQLTrungTamTiengHan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/OhDani/HeThongQLTrungTamTiengHan/issues"
+  },
+  "homepage": "https://github.com/OhDani/HeThongQLTrungTamTiengHan#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
