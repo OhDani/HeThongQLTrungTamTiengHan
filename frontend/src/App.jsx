@@ -1,28 +1,32 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
-// import AppRoutes from "./routes/AppRoutes";
-import DashboardHeader from "./components/layout/DashboardHeader";
-import Navbar from "./components/layout/Navbar";
-import { AuthProvider } from "./contexts/AuthContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/auth/LoginPage";
+import StudentDashboard from "./pages/dashboard/student/StudentDashboard";
+import './App.css'
 
-function App() {
+// Bảo vệ route
+const PrivateRoute = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user ? children : <Navigate to="/login" replace />;
+};
+
+export default function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <div className="flex min-h-screen">
-          <Navbar role="student" />
+    <BrowserRouter>
+      <Routes>
+        {/* Trang login */}
+        <Route path="/login" element={<LoginPage />} />
 
-          <div className="flex-1 flex flex-col">
-            <DashboardHeader />
-            <main className="flex-1 p-6">
-              {/* <AppRoutes /> */}
-              <div className="text-gray-700">Nội dung dashboard ở đây</div>
-            </main>
-          </div>
-        </div>
-      </AuthProvider>
-    </Router>
+        {/* Dashboard Học viên */}
+        <Route
+          path="/dashboard/student"
+          element={
+            <PrivateRoute>
+              <StudentDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
