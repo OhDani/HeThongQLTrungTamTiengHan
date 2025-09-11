@@ -9,7 +9,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const Navbar = () => {
+const DashboardHeader = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const Navbar = () => {
     <header className="bg-white shadow-sm px-6 py-3 flex items-center justify-between">
       <div className="text-2xl font-semibold text-gray-800">Dashboard</div>
 
-      <div className="flex-1 px-15 my-1">
+      <div className="flex-1 px-25 my-1">
         <input
           type="text"
           placeholder="Tìm kiếm..."
@@ -46,7 +46,7 @@ const Navbar = () => {
             <img
               src={user?.avatar || avatar}
               alt="avatar"
-              className="h-8 w-8 rounded-full object-cover border-2 border-blue-500"
+              className="h-8 w-8 rounded-full object-cover border-1 border-black"
             />
             <span className="text-gray-700 font-medium hidden md:block">{user?.fullName || user?.username}</span>
             <ChevronDownIcon className="h-5 w-5 text-gray-400" />
@@ -85,4 +85,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default DashboardHeader;
