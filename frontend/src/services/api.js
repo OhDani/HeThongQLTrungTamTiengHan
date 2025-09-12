@@ -45,3 +45,6 @@ export const submissionApi = createApi("submissions");
 export const gradeApi = createApi("grades");
 export const notificationApi = createApi("notifications");
 export const feedbackApi = createApi("feedbacks");
+export const conversationApi = createApi("conversation");
+export const conversationmemberApi = createApi("conversationmember");
+export const messageApi = createApi("message");
