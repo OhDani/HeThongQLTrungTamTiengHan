@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
 import StudentDashboard from "./pages/dashboard/student/StudentDashboard";
 import './App.css'
@@ -11,22 +11,20 @@ const PrivateRoute = ({ children }) => {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Trang login */}
-        <Route path="/login" element={<LoginPage />} />
+    <Routes>
+      {/* Trang login */}
+      <Route path="/login" element={<LoginPage />} />
 
-        {/* Dashboard Học viên */}
-        <Route
-          path="/dashboard/student"
-          element={
-            <PrivateRoute>
-              <StudentDashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </BrowserRouter>
+      {/* Dashboard Học viên */}
+      <Route
+        path="/dashboard/student"
+        element={
+          <PrivateRoute>
+            <StudentDashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   );
 }
