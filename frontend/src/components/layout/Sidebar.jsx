@@ -23,12 +23,13 @@ const Sidebar = ({ role }) => {
         <ul className="flex flex-col gap-2">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = location.pathname.startsWith(item.path);
+            const path = item.path; 
+            const isActive = location.pathname === path;
             return (
               <li key={item.path}>
                 <Link
-                  to={item.path}
-                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors
+                  to={path}
+                  className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors
                     ${isActive 
                       ? "bg-blue-500 text-white font-medium" 
                       : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
