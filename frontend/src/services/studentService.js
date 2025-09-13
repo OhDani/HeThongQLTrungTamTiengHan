@@ -4,18 +4,20 @@ import {
   userApi,
   gradeApi,
   submissionApi,
+  assignmentApi,
+  flashcardApi
 } from "./api";
 
 /** ===============================
- * LỚP HỌC
+ * LỚP HỌC + TÀI LIỆU
  * =============================== */
 
 // Lấy tất cả enrollment của 1 học viên
 export const getStudentEnrollments = async (studentId) => {
   const enrollments = await enrollmentApi.getAll();
-  return enrollments.filter(
-    (en) => Number(en.student_id) === Number(studentId)
-  );
+  return Array.isArray(enrollments)
+    ? enrollments.filter((en) => Number(en.user_id) === Number(studentId))
+    : [];
 };
 
 // Lấy danh sách lớp học đã đăng ký của học viên
@@ -26,13 +28,15 @@ export const getStudentClasses = async (studentId) => {
   const classes = await classApi.getAll();
   const teachers = await userApi.getAll();
 
+  if (!Array.isArray(classes) || !Array.isArray(teachers)) return [];
+
   return classes
     .filter((cls) =>
       myEnrollments.some((en) => Number(en.class_id) === Number(cls.class_id))
     )
     .map((cls) => {
       const teacher = teachers.find(
-        (t) => Number(t.user_id) === Number(cls.teacher_id)
+        (t) => Number(t.user_id) === Number(cls.user_id)
       );
       const [days, time] = (cls.schedule || "").split(",").map((s) => s.trim());
       return {
@@ -46,6 +50,29 @@ export const getStudentClasses = async (studentId) => {
     });
 };
 
+// Lấy tất cả assignments của học viên, kèm flashcards
+export const getStudentAssignments = async (studentId) => {
+  const allAssignments = await assignmentApi.getAll();
+  const allFlashcards = await flashcardApi.getAll();
+
+  if (!Array.isArray(allAssignments)) return [];
+
+  return allAssignments
+    .filter((a) => Number(a.user_id) === Number(studentId))
+    .map((a) => ({
+      ...a,
+      word_count:
+        a.category?.toLowerCase() === "từ vựng"
+          ? a.description?.split(/\s+/).length || 0
+          : null,
+      // Gắn flashcards cho bài từ vựng
+      flashcards:
+        a.category?.toLowerCase() === "từ vựng"
+          ? allFlashcards.filter((f) => Number(f.material_id) === Number(a.id))
+          : [],
+    }));
+};
+
 /** ===============================
  * ĐIỂM SỐ
  * =============================== */
@@ -53,7 +80,7 @@ export const getStudentClasses = async (studentId) => {
 // Lấy tất cả điểm của học viên
 export const getStudentGrades = async (studentId) => {
   const allGrades = await gradeApi.getAll();
-  return allGrades.filter((g) => Number(g.student_id) === Number(studentId));
+  return allGrades.filter((g) => Number(g.user_id) === Number(studentId));
 };
 
 // Lấy điểm mới nhất của học viên
@@ -69,7 +96,7 @@ export const getLatestStudentGrade = async (studentId) => {
 export const getLatestStudentGradeDate = async (studentId) => {
   const submissions = await submissionApi.getAll();
   const studentSubmissions = submissions
-    .filter((s) => Number(s.student_id) === Number(studentId) && s.submitted_at)
+    .filter((s) => Number(s.user_id) === Number(studentId) && s.submitted_at)
     .sort((a, b) => new Date(b.submitted_at) - new Date(a.submitted_at));
 
   return studentSubmissions.length ? studentSubmissions[0].submitted_at : null;

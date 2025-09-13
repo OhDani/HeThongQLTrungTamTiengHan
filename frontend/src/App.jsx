@@ -1,14 +1,14 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
-import StudentSchedulePage from "./pages/dashboard/student/StudentSchedule.jsx";
-import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
-
-// import AdminEmployees from "./pages/dashboard/admin/AdminEmployees.jsx";
-
 import DashboardLayout from "./components/layout/DashboardLayout";
 import { useAuth } from "./contexts/AuthContext";
 import "./App.css";
+
 import StudentOverview from "./pages/dashboard/student/StudentOverview.jsx";
+import StudentSchedulePage from "./pages/dashboard/student/StudentSchedule.jsx";
+import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
+import StudentMaterials from "./pages/dashboard/student/StudentMaterials.jsx";
+import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -22,12 +22,10 @@ export default function App() {
 
       <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
         <Route path="student/overview" element={<StudentOverview />} />
-        
         <Route path="student/schedule" element={<StudentSchedulePage />} />
         <Route path="student/grades" element={<StudentGradesPage />} />
-
-        {/* <Route path="admin/employees" element={<AdminEmployees />} /> */}
-
+        <Route path="student/materials" element={<StudentMaterials />} />
+        <Route path="student/flashcards/:materialId" element={<AllVocabPage />} />
 
       </Route>
 
