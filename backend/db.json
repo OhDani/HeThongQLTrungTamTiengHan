@@ -61,10 +61,11 @@
       "id": "f214"
     },
     {
+      "user_id": 6,
       "username": "teacher01",
       "full_name": "Ngô Thị Mai",
       "email": "ngo.mai@teacher.salio.com",
-      "password": "",
+      "password": "6",
       "phone": "0902230001",
       "address": "23 Lạch Tray, Hải Phòng",
       "role": "Giảng viên",
@@ -84,10 +85,11 @@
       "id": "4d68"
     },
     {
+      "user_id": 8,
       "username": "manager01",
       "full_name": "Trần Thị Bích",
       "email": "bich.tran@manager.salio.com",
-      "password": "",
+      "password": "8",
       "phone": "0903230001",
       "address": "11 Nguyễn Trãi, Hà Nội",
       "role": "Quản lý học vụ",
@@ -103,7 +105,7 @@
       "phone": "0904230001",
       "address": "33 Nguyễn Văn Cừ, TP.HCM",
       "role": "Quản lý hệ thống",
-      "note": "",
+      "note": "Quản lý toàn bộ trung tâm",
       "id": "73ce"
     },
     {
@@ -685,7 +687,7 @@
     {
       "class_id": 1,
       "course_id": 1,
-      "teacher_id": 7,
+      "user_id": 7,
       "class_name": "Sơ cấp A1",
       "schedule": "T2-T4, 18:00-20:00",
       "room": "P101",
@@ -697,7 +699,7 @@
     {
       "class_id": 2,
       "course_id": 1,
-      "teacher_id": 6,
+      "user_id": 6,
       "class_name": "Sơ cấp A2",
       "schedule": "T3-T5, 19:00-21:00",
       "room": "P102",
@@ -709,7 +711,7 @@
     {
       "class_id": 3,
       "course_id": 2,
-      "teacher_id": 7,
+      "user_id": 7,
       "class_name": "Sơ cấp B1",
       "schedule": "T7-CN, 08:00-10:00",
       "room": "P201",
@@ -721,7 +723,7 @@
     {
       "class_id": 4,
       "course_id": 3,
-      "teacher_id": 6,
+      "user_id": 6,
       "class_name": "Trung cấp C1",
       "schedule": "T2-T5, 18:30-20:30",
       "room": "P301",
@@ -733,7 +735,7 @@
     {
       "class_id": 5,
       "course_id": 4,
-      "teacher_id": 7,
+      "user_id": 7,
       "class_name": "Trung cấp C2",
       "schedule": "T3-T6, 18:00-20:00",
       "room": "P302",
@@ -745,7 +747,7 @@
     {
       "class_id": 6,
       "course_id": 5,
-      "teacher_id": 6,
+      "user_id": 6,
       "class_name": "TOPIK I D1",
       "schedule": "T6-CN, 14:00-16:00",
       "room": "P401",
@@ -757,7 +759,7 @@
     {
       "class_id": 7,
       "course_id": 6,
-      "teacher_id": 7,
+      "user_id": 7,
       "class_name": "TOPIK II D2",
       "schedule": "T2-T4, 18:00-20:00",
       "room": "P402",
@@ -769,7 +771,7 @@
     {
       "class_id": 8,
       "course_id": 7,
-      "teacher_id": 6,
+      "user_id": 6,
       "class_name": "Cao cấp E1",
       "schedule": "T3-T5, 18:00-20:00",
       "room": "P501",
@@ -781,7 +783,7 @@
     {
       "class_id": 9,
       "course_id": 8,
-      "teacher_id": 7,
+      "user_id": 7,
       "class_name": "Cao cấp E2",
       "schedule": "T7-CN, 09:00-11:00",
       "room": "P502",
@@ -794,329 +796,329 @@
   "enrollments": [
     {
       "enrollment_id": 1,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 1,
       "status": "Đang học",
       "id": "f735"
     },
     {
       "enrollment_id": 2,
-      "student_id": 2,
+      "user_id": 2,
       "class_id": 1,
       "status": "Đang học",
       "id": "cff7"
     },
     {
       "enrollment_id": 3,
-      "student_id": 3,
+      "user_id": 3,
       "class_id": 1,
       "status": "Đang học",
       "id": "14b7"
     },
     {
       "enrollment_id": 4,
-      "student_id": 4,
+      "user_id": 4,
       "class_id": 1,
       "status": "Đang học",
       "id": "cc85"
     },
     {
       "enrollment_id": 5,
-      "student_id": 5,
+      "user_id": 5,
       "class_id": 1,
       "status": "Đang học",
       "id": "2d9a"
     },
     {
       "enrollment_id": 6,
-      "student_id": 10,
+      "user_id": 10,
       "class_id": 2,
       "status": "Đang học",
       "id": "0795"
     },
     {
       "enrollment_id": 7,
-      "student_id": 11,
+      "user_id": 11,
       "class_id": 2,
       "status": "Đang học",
       "id": "461c"
     },
     {
       "enrollment_id": 8,
-      "student_id": 12,
+      "user_id": 12,
       "class_id": 2,
       "status": "Đang học",
       "id": "8f21"
     },
     {
       "enrollment_id": 9,
-      "student_id": 13,
+      "user_id": 13,
       "class_id": 2,
       "status": "Đang học",
       "id": "3472"
     },
     {
       "enrollment_id": 10,
-      "student_id": 14,
+      "user_id": 14,
       "class_id": 3,
       "status": "Đang học",
       "id": "2353"
     },
     {
       "enrollment_id": 11,
-      "student_id": 15,
+      "user_id": 15,
       "class_id": 3,
       "status": "Đang học",
       "id": "fcdd"
     },
     {
       "enrollment_id": 12,
-      "student_id": 16,
+      "user_id": 16,
       "class_id": 3,
       "status": "Đang học",
       "id": "5aec"
     },
     {
       "enrollment_id": 13,
-      "student_id": 17,
+      "user_id": 17,
       "class_id": 3,
       "status": "Đang học",
       "id": "0850"
     },
     {
       "enrollment_id": 14,
-      "student_id": 18,
+      "user_id": 18,
       "class_id": 4,
       "status": "Đang học",
       "id": "99e7"
     },
     {
       "enrollment_id": 15,
-      "student_id": 19,
+      "user_id": 19,
       "class_id": 4,
       "status": "Đang học",
       "id": "097f"
     },
     {
       "enrollment_id": 16,
-      "student_id": 20,
+      "user_id": 20,
       "class_id": 4,
       "status": "Đang học",
       "id": "2f94"
     },
     {
       "enrollment_id": 17,
-      "student_id": 21,
+      "user_id": 21,
       "class_id": 4,
       "status": "Đang học",
       "id": "1428"
     },
     {
       "enrollment_id": 18,
-      "student_id": 22,
+      "user_id": 22,
       "class_id": 4,
       "status": "Đang học",
       "id": "5690"
     },
     {
       "enrollment_id": 19,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 2,
       "status": "Đang học",
       "id": "930a"
     },
     {
       "enrollment_id": 20,
-      "student_id": 2,
+      "user_id": 2,
       "class_id": 4,
       "status": "Hủy",
       "id": "6e88"
     },
     {
       "enrollment_id": 21,
-      "student_id": 24,
+      "user_id": 24,
       "class_id": 7,
       "status": "Đang học",
       "id": "84fa"
     },
     {
       "enrollment_id": 22,
-      "student_id": 25,
+      "user_id": 25,
       "class_id": 7,
       "status": "Đang học",
       "id": "b0d3"
     },
     {
       "enrollment_id": 23,
-      "student_id": 26,
+      "user_id": 26,
       "class_id": 7,
       "status": "Đang học",
       "id": "8e24"
     },
     {
       "enrollment_id": 24,
-      "student_id": 27,
+      "user_id": 27,
       "class_id": 7,
       "status": "Đang học",
       "id": "86f6"
     },
     {
       "enrollment_id": 25,
-      "student_id": 28,
+      "user_id": 28,
       "class_id": 7,
       "status": "Đang học",
       "id": "aafe"
     },
     {
       "enrollment_id": 26,
-      "student_id": 29,
+      "user_id": 29,
       "class_id": 7,
       "status": "Đang học",
       "id": "4dd2"
     },
     {
       "enrollment_id": 27,
-      "student_id": 30,
+      "user_id": 30,
       "class_id": 7,
       "status": "Đang học",
       "id": "fea4"
     },
     {
       "enrollment_id": 28,
-      "student_id": 31,
+      "user_id": 31,
       "class_id": 7,
       "status": "Đang học",
       "id": "82f0"
     },
     {
       "enrollment_id": 29,
-      "student_id": 32,
+      "user_id": 32,
       "class_id": 7,
       "status": "Đang học",
       "id": "f40d"
     },
     {
       "enrollment_id": 30,
-      "student_id": 33,
+      "user_id": 33,
       "class_id": 7,
       "status": "Đang học",
       "id": "e63e"
     },
     {
       "enrollment_id": 31,
-      "student_id": 34,
+      "user_id": 34,
       "class_id": 7,
       "status": "Đang học",
       "id": "b9d7"
     },
     {
       "enrollment_id": 32,
-      "student_id": 35,
+      "user_id": 35,
       "class_id": 7,
       "status": "Đang học",
       "id": "80f3"
     },
     {
       "enrollment_id": 33,
-      "student_id": 36,
+      "user_id": 36,
       "class_id": 7,
       "status": "Đang học",
       "id": "f959"
     },
     {
       "enrollment_id": 34,
-      "student_id": 37,
+      "user_id": 37,
       "class_id": 7,
       "status": "Đang học",
       "id": "ce60"
     },
     {
       "enrollment_id": 35,
-      "student_id": 38,
+      "user_id": 38,
       "class_id": 7,
       "status": "Đang học",
       "id": "cfd2"
     },
     {
       "enrollment_id": 36,
-      "student_id": 39,
+      "user_id": 39,
       "class_id": 7,
       "status": "Đang học",
       "id": "c494"
     },
     {
       "enrollment_id": 37,
-      "student_id": 40,
+      "user_id": 40,
       "class_id": 7,
       "status": "Đang học",
       "id": "6618"
     },
     {
       "enrollment_id": 38,
-      "student_id": 41,
+      "user_id": 41,
       "class_id": 7,
       "status": "Đang học",
       "id": "89a5"
     },
     {
       "enrollment_id": 39,
-      "student_id": 42,
+      "user_id": 42,
       "class_id": 7,
       "status": "Đang học",
       "id": "2792"
     },
     {
       "enrollment_id": 40,
-      "student_id": 43,
+      "user_id": 43,
       "class_id": 7,
       "status": "Đang học",
       "id": "756c"
     },
     {
       "enrollment_id": 41,
-      "student_id": 44,
+      "user_id": 44,
       "class_id": 7,
       "status": "Đang học",
       "id": "f691"
     },
     {
       "enrollment_id": 42,
-      "student_id": 45,
+      "user_id": 45,
       "class_id": 7,
       "status": "Đang học",
       "id": "24c7"
     },
     {
       "enrollment_id": 43,
-      "student_id": 46,
+      "user_id": 46,
       "class_id": 7,
       "status": "Đang học",
       "id": "e3d8"
     },
     {
       "enrollment_id": 44,
-      "student_id": 47,
+      "user_id": 47,
       "class_id": 7,
       "status": "Đang học",
       "id": "ce1a"
     },
     {
       "enrollment_id": 45,
-      "student_id": 48,
+      "user_id": 48,
       "class_id": 7,
       "status": "Đang học",
       "id": "8774"
     },
     {
       "enrollment_id": 46,
-      "student_id": 49,
+      "user_id": 49,
       "class_id": 7,
       "status": "Đang học",
       "id": "c1fa"
     },
     {
       "enrollment_id": 47,
-      "student_id": 50,
+      "user_id": 50,
       "class_id": 7,
       "status": "Đang học",
       "id": "81b7"
@@ -1125,7 +1127,7 @@
   "attendance": [
     {
       "attendance_id": 1,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 1,
       "date": "2024-02-01",
       "status": "Có mặt",
@@ -1133,7 +1135,7 @@
     },
     {
       "attendance_id": 2,
-      "student_id": 2,
+      "user_id": 2,
       "class_id": 1,
       "date": "2024-02-01",
       "status": "Có mặt",
@@ -1141,7 +1143,7 @@
     },
     {
       "attendance_id": 3,
-      "student_id": 3,
+      "user_id": 3,
       "class_id": 1,
       "date": "2024-02-01",
       "status": "Muộn",
@@ -1149,7 +1151,7 @@
     },
     {
       "attendance_id": 4,
-      "student_id": 4,
+      "user_id": 4,
       "class_id": 1,
       "date": "2024-02-01",
       "status": "Có mặt",
@@ -1157,7 +1159,7 @@
     },
     {
       "attendance_id": 5,
-      "student_id": 5,
+      "user_id": 5,
       "class_id": 1,
       "date": "2024-02-01",
       "status": "Vắng",
@@ -1165,7 +1167,7 @@
     },
     {
       "attendance_id": 6,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 1,
       "date": "2024-02-08",
       "status": "Có mặt",
@@ -1173,7 +1175,7 @@
     },
     {
       "attendance_id": 7,
-      "student_id": 2,
+      "user_id": 2,
       "class_id": 1,
       "date": "2024-02-08",
       "status": "Có mặt",
@@ -1181,7 +1183,7 @@
     },
     {
       "attendance_id": 8,
-      "student_id": 3,
+      "user_id": 3,
       "class_id": 1,
       "date": "2024-02-08",
       "status": "Có mặt",
@@ -1189,7 +1191,7 @@
     },
     {
       "attendance_id": 9,
-      "student_id": 4,
+      "user_id": 4,
       "class_id": 1,
       "date": "2024-02-08",
       "status": "Vắng",
@@ -1197,7 +1199,7 @@
     },
     {
       "attendance_id": 10,
-      "student_id": 5,
+      "user_id": 5,
       "class_id": 1,
       "date": "2024-02-08",
       "status": "Có mặt",
@@ -1205,7 +1207,7 @@
     },
     {
       "attendance_id": 37,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 2,
       "date": "2024-02-02",
       "status": "Có mặt",
@@ -1213,7 +1215,7 @@
     },
     {
       "attendance_id": 11,
-      "student_id": 10,
+      "user_id": 10,
       "class_id": 2,
       "date": "2024-02-02",
       "status": "Có mặt",
@@ -1221,7 +1223,7 @@
     },
     {
       "attendance_id": 12,
-      "student_id": 11,
+      "user_id": 11,
       "class_id": 2,
       "date": "2024-02-02",
       "status": "Có mặt",
@@ -1229,7 +1231,7 @@
     },
     {
       "attendance_id": 13,
-      "student_id": 12,
+      "user_id": 12,
       "class_id": 2,
       "date": "2024-02-02",
       "status": "Muộn",
@@ -1237,7 +1239,7 @@
     },
     {
       "attendance_id": 14,
-      "student_id": 13,
+      "user_id": 13,
       "class_id": 2,
       "date": "2024-02-02",
       "status": "Có mặt",
@@ -1245,7 +1247,7 @@
     },
     {
       "attendance_id": 38,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 2,
       "date": "2024-02-09",
       "status": "Có mặt",
@@ -1253,7 +1255,7 @@
     },
     {
       "attendance_id": 15,
-      "student_id": 10,
+      "user_id": 10,
       "class_id": 2,
       "date": "2024-02-09",
       "status": "Có mặt",
@@ -1261,7 +1263,7 @@
     },
     {
       "attendance_id": 16,
-      "student_id": 11,
+      "user_id": 11,
       "class_id": 2,
       "date": "2024-02-09",
       "status": "Vắng",
@@ -1269,7 +1271,7 @@
     },
     {
       "attendance_id": 17,
-      "student_id": 12,
+      "user_id": 12,
       "class_id": 2,
       "date": "2024-02-09",
       "status": "Có mặt",
@@ -1277,7 +1279,7 @@
     },
     {
       "attendance_id": 18,
-      "student_id": 13,
+      "user_id": 13,
       "class_id": 2,
       "date": "2024-02-09",
       "status": "Có mặt",
@@ -1285,7 +1287,7 @@
     },
     {
       "attendance_id": 19,
-      "student_id": 14,
+      "user_id": 14,
       "class_id": 3,
       "date": "2024-02-03",
       "status": "Có mặt",
@@ -1293,7 +1295,7 @@
     },
     {
       "attendance_id": 20,
-      "student_id": 15,
+      "user_id": 15,
       "class_id": 3,
       "date": "2024-02-03",
       "status": "Có mặt",
@@ -1301,7 +1303,7 @@
     },
     {
       "attendance_id": 21,
-      "student_id": 16,
+      "user_id": 16,
       "class_id": 3,
       "date": "2024-02-03",
       "status": "Vắng",
@@ -1309,7 +1311,7 @@
     },
     {
       "attendance_id": 22,
-      "student_id": 17,
+      "user_id": 17,
       "class_id": 3,
       "date": "2024-02-03",
       "status": "Có mặt",
@@ -1317,7 +1319,7 @@
     },
     {
       "attendance_id": 23,
-      "student_id": 14,
+      "user_id": 14,
       "class_id": 3,
       "date": "2024-02-10",
       "status": "Có mặt",
@@ -1325,7 +1327,7 @@
     },
     {
       "attendance_id": 24,
-      "student_id": 15,
+      "user_id": 15,
       "class_id": 3,
       "date": "2024-02-10",
       "status": "Có mặt",
@@ -1333,7 +1335,7 @@
     },
     {
       "attendance_id": 25,
-      "student_id": 16,
+      "user_id": 16,
       "class_id": 3,
       "date": "2024-02-10",
       "status": "Có mặt",
@@ -1341,7 +1343,7 @@
     },
     {
       "attendance_id": 26,
-      "student_id": 17,
+      "user_id": 17,
       "class_id": 3,
       "date": "2024-02-10",
       "status": "Muộn",
@@ -1349,7 +1351,7 @@
     },
     {
       "attendance_id": 27,
-      "student_id": 18,
+      "user_id": 18,
       "class_id": 4,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1357,7 +1359,7 @@
     },
     {
       "attendance_id": 28,
-      "student_id": 19,
+      "user_id": 19,
       "class_id": 4,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1365,7 +1367,7 @@
     },
     {
       "attendance_id": 29,
-      "student_id": 20,
+      "user_id": 20,
       "class_id": 4,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1373,7 +1375,7 @@
     },
     {
       "attendance_id": 30,
-      "student_id": 21,
+      "user_id": 21,
       "class_id": 4,
       "date": "2024-02-04",
       "status": "Vắng",
@@ -1381,7 +1383,7 @@
     },
     {
       "attendance_id": 31,
-      "student_id": 22,
+      "user_id": 22,
       "class_id": 4,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1389,7 +1391,7 @@
     },
     {
       "attendance_id": 32,
-      "student_id": 18,
+      "user_id": 18,
       "class_id": 4,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1397,7 +1399,7 @@
     },
     {
       "attendance_id": 33,
-      "student_id": 19,
+      "user_id": 19,
       "class_id": 4,
       "date": "2024-02-11",
       "status": "Muộn",
@@ -1405,7 +1407,7 @@
     },
     {
       "attendance_id": 34,
-      "student_id": 20,
+      "user_id": 20,
       "class_id": 4,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1413,7 +1415,7 @@
     },
     {
       "attendance_id": 35,
-      "student_id": 21,
+      "user_id": 21,
       "class_id": 4,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1421,7 +1423,7 @@
     },
     {
       "attendance_id": 36,
-      "student_id": 22,
+      "user_id": 22,
       "class_id": 4,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1429,7 +1431,7 @@
     },
     {
       "attendance_id": 38,
-      "student_id": 24,
+      "user_id": 24,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1437,7 +1439,7 @@
     },
     {
       "attendance_id": 39,
-      "student_id": 25,
+      "user_id": 25,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1445,7 +1447,7 @@
     },
     {
       "attendance_id": 40,
-      "student_id": 26,
+      "user_id": 26,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1453,7 +1455,7 @@
     },
     {
       "attendance_id": 41,
-      "student_id": 27,
+      "user_id": 27,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Vắng",
@@ -1461,7 +1463,7 @@
     },
     {
       "attendance_id": 42,
-      "student_id": 28,
+      "user_id": 28,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1469,7 +1471,7 @@
     },
     {
       "attendance_id": 43,
-      "student_id": 29,
+      "user_id": 29,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1477,7 +1479,7 @@
     },
     {
       "attendance_id": 44,
-      "student_id": 30,
+      "user_id": 30,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1485,7 +1487,7 @@
     },
     {
       "attendance_id": 45,
-      "student_id": 31,
+      "user_id": 31,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Muộn",
@@ -1493,7 +1495,7 @@
     },
     {
       "attendance_id": 46,
-      "student_id": 32,
+      "user_id": 32,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1501,7 +1503,7 @@
     },
     {
       "attendance_id": 47,
-      "student_id": 33,
+      "user_id": 33,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1509,7 +1511,7 @@
     },
     {
       "attendance_id": 48,
-      "student_id": 34,
+      "user_id": 34,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1517,7 +1519,7 @@
     },
     {
       "attendance_id": 49,
-      "student_id": 35,
+      "user_id": 35,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1525,7 +1527,7 @@
     },
     {
       "attendance_id": 50,
-      "student_id": 36,
+      "user_id": 36,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Vắng",
@@ -1533,7 +1535,7 @@
     },
     {
       "attendance_id": 51,
-      "student_id": 37,
+      "user_id": 37,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1541,7 +1543,7 @@
     },
     {
       "attendance_id": 52,
-      "student_id": 38,
+      "user_id": 38,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1549,7 +1551,7 @@
     },
     {
       "attendance_id": 53,
-      "student_id": 39,
+      "user_id": 39,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1557,7 +1559,7 @@
     },
     {
       "attendance_id": 54,
-      "student_id": 40,
+      "user_id": 40,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1565,7 +1567,7 @@
     },
     {
       "attendance_id": 55,
-      "student_id": 41,
+      "user_id": 41,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Muộn",
@@ -1573,7 +1575,7 @@
     },
     {
       "attendance_id": 56,
-      "student_id": 42,
+      "user_id": 42,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1581,7 +1583,7 @@
     },
     {
       "attendance_id": 57,
-      "student_id": 43,
+      "user_id": 43,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1589,7 +1591,7 @@
     },
     {
       "attendance_id": 58,
-      "student_id": 44,
+      "user_id": 44,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1597,7 +1599,7 @@
     },
     {
       "attendance_id": 59,
-      "student_id": 45,
+      "user_id": 45,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1605,7 +1607,7 @@
     },
     {
       "attendance_id": 60,
-      "student_id": 46,
+      "user_id": 46,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1613,7 +1615,7 @@
     },
     {
       "attendance_id": 61,
-      "student_id": 47,
+      "user_id": 47,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1621,7 +1623,7 @@
     },
     {
       "attendance_id": 62,
-      "student_id": 48,
+      "user_id": 48,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Muộn",
@@ -1629,7 +1631,7 @@
     },
     {
       "attendance_id": 63,
-      "student_id": 49,
+      "user_id": 49,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1637,7 +1639,7 @@
     },
     {
       "attendance_id": 64,
-      "student_id": 50,
+      "user_id": 50,
       "class_id": 7,
       "date": "2024-02-04",
       "status": "Có mặt",
@@ -1645,7 +1647,7 @@
     },
     {
       "attendance_id": 65,
-      "student_id": 24,
+      "user_id": 24,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1653,7 +1655,7 @@
     },
     {
       "attendance_id": 66,
-      "student_id": 25,
+      "user_id": 25,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Muộn",
@@ -1661,7 +1663,7 @@
     },
     {
       "attendance_id": 67,
-      "student_id": 26,
+      "user_id": 26,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1669,7 +1671,7 @@
     },
     {
       "attendance_id": 68,
-      "student_id": 27,
+      "user_id": 27,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1677,7 +1679,7 @@
     },
     {
       "attendance_id": 69,
-      "student_id": 28,
+      "user_id": 28,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1685,7 +1687,7 @@
     },
     {
       "attendance_id": 70,
-      "student_id": 29,
+      "user_id": 29,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1693,7 +1695,7 @@
     },
     {
       "attendance_id": 71,
-      "student_id": 30,
+      "user_id": 30,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1701,7 +1703,7 @@
     },
     {
       "attendance_id": 72,
-      "student_id": 31,
+      "user_id": 31,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1709,7 +1711,7 @@
     },
     {
       "attendance_id": 73,
-      "student_id": 32,
+      "user_id": 32,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1717,7 +1719,7 @@
     },
     {
       "attendance_id": 74,
-      "student_id": 33,
+      "user_id": 33,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1725,7 +1727,7 @@
     },
     {
       "attendance_id": 75,
-      "student_id": 34,
+      "user_id": 34,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1733,7 +1735,7 @@
     },
     {
       "attendance_id": 76,
-      "student_id": 35,
+      "user_id": 35,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1741,7 +1743,7 @@
     },
     {
       "attendance_id": 77,
-      "student_id": 36,
+      "user_id": 36,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1749,7 +1751,7 @@
     },
     {
       "attendance_id": 78,
-      "student_id": 37,
+      "user_id": 37,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1757,7 +1759,7 @@
     },
     {
       "attendance_id": 79,
-      "student_id": 38,
+      "user_id": 38,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Muộn",
@@ -1765,7 +1767,7 @@
     },
     {
       "attendance_id": 80,
-      "student_id": 39,
+      "user_id": 39,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1773,7 +1775,7 @@
     },
     {
       "attendance_id": 81,
-      "student_id": 40,
+      "user_id": 40,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1781,7 +1783,7 @@
     },
     {
       "attendance_id": 82,
-      "student_id": 41,
+      "user_id": 41,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1789,7 +1791,7 @@
     },
     {
       "attendance_id": 83,
-      "student_id": 42,
+      "user_id": 42,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1797,7 +1799,7 @@
     },
     {
       "attendance_id": 84,
-      "student_id": 43,
+      "user_id": 43,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1805,7 +1807,7 @@
     },
     {
       "attendance_id": 85,
-      "student_id": 44,
+      "user_id": 44,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1813,7 +1815,7 @@
     },
     {
       "attendance_id": 86,
-      "student_id": 45,
+      "user_id": 45,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1821,7 +1823,7 @@
     },
     {
       "attendance_id": 87,
-      "student_id": 46,
+      "user_id": 46,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1829,7 +1831,7 @@
     },
     {
       "attendance_id": 88,
-      "student_id": 47,
+      "user_id": 47,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1837,7 +1839,7 @@
     },
     {
       "attendance_id": 89,
-      "student_id": 48,
+      "user_id": 48,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1845,7 +1847,7 @@
     },
     {
       "attendance_id": 90,
-      "student_id": 49,
+      "user_id": 49,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1853,7 +1855,7 @@
     },
     {
       "attendance_id": 91,
-      "student_id": 50,
+      "user_id": 50,
       "class_id": 7,
       "date": "2024-02-11",
       "status": "Có mặt",
@@ -1864,7 +1866,7 @@
     {
       "material_id": 1,
       "class_id": 1,
-      "teacher_id": 6,
+      "user_id": 6,
       "title": "Bài tập Từ vựng - Tuần 1",
       "description": "Học thuộc và viết lại 20 từ mới đã học",
       "file_url": null,
@@ -1878,7 +1880,7 @@
     {
       "material_id": 2,
       "class_id": 1,
-      "teacher_id": 6,
+      "user_id": 6,
       "title": "Ngữ pháp cơ bản: Câu chào hỏi",
       "description": "Tài liệu PDF về cách chào hỏi và giới thiệu bản thân",
       "file_url": "materials/grammar_greetings.pdf",
@@ -1892,7 +1894,7 @@
     {
       "material_id": 3,
       "class_id": 2,
-      "teacher_id": 6,
+      "user_id": 6,
       "title": "Bài tập Nghe - Tuần 2",
       "description": "Nghe đoạn hội thoại và trả lời câu hỏi",
       "file_url": "materials/listening_task1.docx",
@@ -1906,7 +1908,7 @@
     {
       "material_id": 4,
       "class_id": 2,
-      "teacher_id": 6,
+      "user_id": 6,
       "title": "Từ vựng chủ đề Gia đình",
       "description": "Danh sách từ vựng và hình ảnh minh họa về chủ đề Gia đình",
       "file_url": null,
@@ -1920,7 +1922,7 @@
     {
       "material_id": 5,
       "class_id": 3,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Bài tập Viết - Tuần 3",
       "description": "Viết một đoạn văn 200 chữ về sở thích cá nhân",
       "file_url": null,
@@ -1934,7 +1936,7 @@
     {
       "material_id": 6,
       "class_id": 3,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Ngữ pháp nâng cao: Liên từ",
       "description": "Slide giảng về cách sử dụng liên từ trong câu phức",
       "file_url": "materials/conjunctions_slide.pptx",
@@ -1948,7 +1950,7 @@
     {
       "material_id": 7,
       "class_id": 4,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Đề luyện TOPIK - Listening",
       "description": "Bài nghe luyện thi TOPIK I kèm đáp án",
       "file_url": "materials/topik_listening.pdf",
@@ -1962,7 +1964,7 @@
     {
       "material_id": 8,
       "class_id": 4,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Tài liệu tham khảo TOPIK",
       "description": "Link tham khảo đề thi TOPIK các năm trước",
       "file_url": null,
@@ -1976,7 +1978,7 @@
     {
       "material_id": 9,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Bài tập Từ vựng - Tuần 1",
       "description": "Học thuộc và viết lại 30 từ mới theo chủ đề Trường học",
       "file_url": null,
@@ -1990,7 +1992,7 @@
     {
       "material_id": 10,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Ngữ pháp cơ bản: Thì hiện tại đơn",
       "description": "PDF giải thích cấu trúc và ví dụ về thì hiện tại đơn",
       "file_url": "materials/present_simple.pdf",
@@ -2004,7 +2006,7 @@
     {
       "material_id": 11,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Bài tập Nghe - Tuần 2",
       "description": "Nghe đoạn hội thoại về mua sắm và trả lời 5 câu hỏi",
       "file_url": "materials/listening_shopping.mp3",
@@ -2018,7 +2020,7 @@
     {
       "material_id": 12,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Từ vựng chủ đề Mua sắm",
       "description": "Danh sách 25 từ vựng kèm hình ảnh minh họa",
       "file_url": null,
@@ -2032,7 +2034,7 @@
     {
       "material_id": 13,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Bài tập Viết - Tuần 3",
       "description": "Viết đoạn văn 250 chữ về một ngày cuối tuần của bạn",
       "file_url": null,
@@ -2046,7 +2048,7 @@
     {
       "material_id": 14,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Ngữ pháp nâng cao: Thì hiện tại hoàn thành",
       "description": "Slide giảng chi tiết cách dùng thì hiện tại hoàn thành",
       "file_url": "materials/present_perfect_slide.pptx",
@@ -2060,7 +2062,7 @@
     {
       "material_id": 15,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Đề luyện Nghe - Tuần 4",
       "description": "Bài nghe luyện tập theo dạng đề TOPIK I",
       "file_url": "materials/topik_listening_set2.pdf",
@@ -2074,7 +2076,7 @@
     {
       "material_id": 16,
       "class_id": 7,
-      "teacher_id": 7,
+      "user_id": 7,
       "title": "Tài liệu tham khảo: Hội thoại thông dụng",
       "description": "Link tham khảo 50 đoạn hội thoại cơ bản",
       "file_url": null,
@@ -2180,7 +2182,7 @@
     {
       "submission_id": 1,
       "material_id": 1,
-      "student_id": 1,
+      "user_id": 1,
       "file_url": "submissions/vocab1_student01.docx",
       "submitted_at": "2024-02-04 19:00:00",
       "grade": 88,
@@ -2192,7 +2194,7 @@
     {
       "submission_id": 2,
       "material_id": 1,
-      "student_id": 2,
+      "user_id": 2,
       "file_url": "submissions/vocab1_student02.docx",
       "submitted_at": "2024-02-05 08:20:00",
       "grade": 95,
@@ -2204,7 +2206,7 @@
     {
       "submission_id": 3,
       "material_id": 1,
-      "student_id": 3,
+      "user_id": 3,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2216,7 +2218,7 @@
     {
       "submission_id": 4,
       "material_id": 1,
-      "student_id": 4,
+      "user_id": 4,
       "file_url": "submissions/vocab1_student04.docx",
       "submitted_at": "2024-02-05 23:50:00",
       "grade": null,
@@ -2228,7 +2230,7 @@
     {
       "submission_id": 5,
       "material_id": 1,
-      "student_id": 5,
+      "user_id": 5,
       "file_url": "submissions/vocab1_student05.docx",
       "submitted_at": "2024-02-04 20:10:00",
       "grade": 70,
@@ -2240,7 +2242,7 @@
     {
       "submission_id": 6,
       "material_id": 3,
-      "student_id": 10,
+      "user_id": 10,
       "file_url": "submissions/listening2_student10.docx",
       "submitted_at": "2024-02-11 21:15:00",
       "grade": 75,
@@ -2252,7 +2254,7 @@
     {
       "submission_id": 7,
       "material_id": 3,
-      "student_id": 11,
+      "user_id": 11,
       "file_url": "submissions/listening2_student11.docx",
       "submitted_at": "2024-02-12 09:00:00",
       "grade": null,
@@ -2264,7 +2266,7 @@
     {
       "submission_id": 8,
       "material_id": 3,
-      "student_id": 12,
+      "user_id": 12,
       "file_url": "submissions/listening2_student12.docx",
       "submitted_at": null,
       "grade": null,
@@ -2276,7 +2278,7 @@
     {
       "submission_id": 9,
       "material_id": 3,
-      "student_id": 13,
+      "user_id": 13,
       "file_url": "submissions/listening2_student13.docx",
       "submitted_at": "2024-02-12 10:15:00",
       "grade": 85,
@@ -2288,7 +2290,7 @@
     {
       "submission_id": 10,
       "material_id": 3,
-      "student_id": 1,
+      "user_id": 1,
       "file_url": "submissions/listening2_student01.docx",
       "submitted_at": "2024-02-12 09:40:00",
       "grade": 90,
@@ -2300,7 +2302,7 @@
     {
       "submission_id": 11,
       "material_id": 5,
-      "student_id": 14,
+      "user_id": 14,
       "file_url": "submissions/writing3_student14.docx",
       "submitted_at": "2024-02-19 18:45:00",
       "grade": 90,
@@ -2312,7 +2314,7 @@
     {
       "submission_id": 12,
       "material_id": 5,
-      "student_id": 15,
+      "user_id": 15,
       "file_url": "submissions/writing3_student15.docx",
       "submitted_at": "2024-02-20 11:10:00",
       "grade": 70,
@@ -2324,7 +2326,7 @@
     {
       "submission_id": 13,
       "material_id": 5,
-      "student_id": 16,
+      "user_id": 16,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2336,7 +2338,7 @@
     {
       "submission_id": 14,
       "material_id": 5,
-      "student_id": 17,
+      "user_id": 17,
       "file_url": "submissions/writing3_student17.docx",
       "submitted_at": "2024-02-20 10:30:00",
       "grade": 82,
@@ -2348,7 +2350,7 @@
     {
       "submission_id": 15,
       "material_id": 7,
-      "student_id": 18,
+      "user_id": 18,
       "file_url": "submissions/topik_listening_student18.pdf",
       "submitted_at": "2024-02-24 20:30:00",
       "grade": 82,
@@ -2360,7 +2362,7 @@
     {
       "submission_id": 16,
       "material_id": 7,
-      "student_id": 19,
+      "user_id": 19,
       "file_url": "submissions/topik_listening_student19.pdf",
       "submitted_at": "2024-02-25 09:15:00",
       "grade": null,
@@ -2372,7 +2374,7 @@
     {
       "submission_id": 17,
       "material_id": 7,
-      "student_id": 20,
+      "user_id": 20,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2384,7 +2386,7 @@
     {
       "submission_id": 18,
       "material_id": 7,
-      "student_id": 21,
+      "user_id": 21,
       "file_url": "submissions/topik_listening_student21.pdf",
       "submitted_at": "2024-02-25 22:00:00",
       "grade": 95,
@@ -2396,7 +2398,7 @@
     {
       "submission_id": 19,
       "material_id": 7,
-      "student_id": 22,
+      "user_id": 22,
       "file_url": "submissions/topik_listening_student22.pdf",
       "submitted_at": "2024-02-25 21:00:00",
       "grade": 78,
@@ -2408,7 +2410,7 @@
     {
       "submission_id": 20,
       "material_id": 9,
-      "student_id": 23,
+      "user_id": 23,
       "file_url": "submissions/vocab_week1_student23.docx",
       "submitted_at": "2024-03-05 20:30:00",
       "grade": 85,
@@ -2420,7 +2422,7 @@
     {
       "submission_id": 21,
       "material_id": 9,
-      "student_id": 24,
+      "user_id": 24,
       "file_url": "submissions/vocab_week1_student24.docx",
       "submitted_at": "2024-03-06 09:00:00",
       "grade": null,
@@ -2432,7 +2434,7 @@
     {
       "submission_id": 22,
       "material_id": 9,
-      "student_id": 25,
+      "user_id": 25,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2444,7 +2446,7 @@
     {
       "submission_id": 23,
       "material_id": 9,
-      "student_id": 26,
+      "user_id": 26,
       "file_url": "submissions/vocab_week1_student26.docx",
       "submitted_at": "2024-03-05 22:10:00",
       "grade": 92,
@@ -2456,7 +2458,7 @@
     {
       "submission_id": 24,
       "material_id": 9,
-      "student_id": 27,
+      "user_id": 27,
       "file_url": "submissions/vocab_week1_student27.docx",
       "submitted_at": "2024-03-06 08:45:00",
       "grade": 76,
@@ -2468,7 +2470,7 @@
     {
       "submission_id": 25,
       "material_id": 9,
-      "student_id": 28,
+      "user_id": 28,
       "file_url": "submissions/vocab_week1_student28.docx",
       "submitted_at": "2024-03-06 21:15:00",
       "grade": null,
@@ -2480,7 +2482,7 @@
     {
       "submission_id": 26,
       "material_id": 9,
-      "student_id": 29,
+      "user_id": 29,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2492,7 +2494,7 @@
     {
       "submission_id": 27,
       "material_id": 9,
-      "student_id": 30,
+      "user_id": 30,
       "file_url": "submissions/vocab_week1_student30.docx",
       "submitted_at": "2024-03-05 19:50:00",
       "grade": 90,
@@ -2504,7 +2506,7 @@
     {
       "submission_id": 28,
       "material_id": 9,
-      "student_id": 31,
+      "user_id": 31,
       "file_url": "submissions/vocab_week1_student31.docx",
       "submitted_at": "2024-03-06 10:20:00",
       "grade": null,
@@ -2516,7 +2518,7 @@
     {
       "submission_id": 29,
       "material_id": 9,
-      "student_id": 32,
+      "user_id": 32,
       "file_url": "submissions/vocab_week1_student32.docx",
       "submitted_at": "2024-03-06 22:00:00",
       "grade": 81,
@@ -2528,7 +2530,7 @@
     {
       "submission_id": 30,
       "material_id": 9,
-      "student_id": 33,
+      "user_id": 33,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2540,7 +2542,7 @@
     {
       "submission_id": 31,
       "material_id": 9,
-      "student_id": 34,
+      "user_id": 34,
       "file_url": "submissions/vocab_week1_student34.docx",
       "submitted_at": "2024-03-06 09:50:00",
       "grade": null,
@@ -2552,7 +2554,7 @@
     {
       "submission_id": 32,
       "material_id": 9,
-      "student_id": 35,
+      "user_id": 35,
       "file_url": "submissions/vocab_week1_student35.docx",
       "submitted_at": "2024-03-05 23:30:00",
       "grade": 95,
@@ -2564,7 +2566,7 @@
     {
       "submission_id": 33,
       "material_id": 9,
-      "student_id": 36,
+      "user_id": 36,
       "file_url": "submissions/vocab_week1_student36.docx",
       "submitted_at": "2024-03-06 20:40:00",
       "grade": null,
@@ -2576,7 +2578,7 @@
     {
       "submission_id": 34,
       "material_id": 9,
-      "student_id": 37,
+      "user_id": 37,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2588,7 +2590,7 @@
     {
       "submission_id": 35,
       "material_id": 9,
-      "student_id": 38,
+      "user_id": 38,
       "file_url": "submissions/vocab_week1_student38.docx",
       "submitted_at": "2024-03-05 21:10:00",
       "grade": 87,
@@ -2600,7 +2602,7 @@
     {
       "submission_id": 36,
       "material_id": 9,
-      "student_id": 39,
+      "user_id": 39,
       "file_url": "submissions/vocab_week1_student39.docx",
       "submitted_at": "2024-03-06 09:40:00",
       "grade": null,
@@ -2612,7 +2614,7 @@
     {
       "submission_id": 37,
       "material_id": 9,
-      "student_id": 40,
+      "user_id": 40,
       "file_url": "submissions/vocab_week1_student40.docx",
       "submitted_at": "2024-03-06 22:30:00",
       "grade": 79,
@@ -2624,7 +2626,7 @@
     {
       "submission_id": 38,
       "material_id": 9,
-      "student_id": 41,
+      "user_id": 41,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2636,7 +2638,7 @@
     {
       "submission_id": 39,
       "material_id": 9,
-      "student_id": 42,
+      "user_id": 42,
       "file_url": "submissions/vocab_week1_student42.docx",
       "submitted_at": "2024-03-06 20:10:00",
       "grade": 84,
@@ -2648,7 +2650,7 @@
     {
       "submission_id": 40,
       "material_id": 9,
-      "student_id": 43,
+      "user_id": 43,
       "file_url": "submissions/vocab_week1_student43.docx",
       "submitted_at": "2024-03-06 09:20:00",
       "grade": null,
@@ -2660,7 +2662,7 @@
     {
       "submission_id": 41,
       "material_id": 9,
-      "student_id": 44,
+      "user_id": 44,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2672,7 +2674,7 @@
     {
       "submission_id": 42,
       "material_id": 9,
-      "student_id": 45,
+      "user_id": 45,
       "file_url": "submissions/vocab_week1_student45.docx",
       "submitted_at": "2024-03-05 21:50:00",
       "grade": 88,
@@ -2684,7 +2686,7 @@
     {
       "submission_id": 43,
       "material_id": 9,
-      "student_id": 46,
+      "user_id": 46,
       "file_url": "submissions/vocab_week1_student46.docx",
       "submitted_at": "2024-03-06 20:50:00",
       "grade": null,
@@ -2696,7 +2698,7 @@
     {
       "submission_id": 44,
       "material_id": 9,
-      "student_id": 47,
+      "user_id": 47,
       "file_url": "submissions/vocab_week1_student47.docx",
       "submitted_at": "2024-03-06 22:20:00",
       "grade": 91,
@@ -2708,7 +2710,7 @@
     {
       "submission_id": 45,
       "material_id": 9,
-      "student_id": 48,
+      "user_id": 48,
       "file_url": null,
       "submitted_at": null,
       "grade": null,
@@ -2720,7 +2722,7 @@
     {
       "submission_id": 46,
       "material_id": 9,
-      "student_id": 49,
+      "user_id": 49,
       "file_url": "submissions/vocab_week1_student49.docx",
       "submitted_at": "2024-03-05 19:20:00",
       "grade": 82,
@@ -2732,7 +2734,7 @@
     {
       "submission_id": 47,
       "material_id": 9,
-      "student_id": 50,
+      "user_id": 50,
       "file_url": "submissions/vocab_week1_student50.docx",
       "submitted_at": "2024-03-06 08:30:00",
       "grade": null,
@@ -2745,7 +2747,7 @@
   "grades": [
     {
       "grade_id": 1,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 1,
       "attendance_score": 95,
       "attendance_remark": "Đi học đều, đúng giờ",
@@ -2772,7 +2774,7 @@
     },
     {
       "grade_id": 2,
-      "student_id": 2,
+      "user_id": 2,
       "class_id": 1,
       "attendance_score": 100,
       "attendance_remark": "Chuyên cần tốt",
@@ -2799,7 +2801,7 @@
     },
     {
       "grade_id": 3,
-      "student_id": 3,
+      "user_id": 3,
       "class_id": 1,
       "attendance_score": 85,
       "attendance_remark": "Thi thoảng đi muộn",
@@ -2826,7 +2828,7 @@
     },
     {
       "grade_id": 4,
-      "student_id": 4,
+      "user_id": 4,
       "class_id": 1,
       "attendance_score": 90,
       "attendance_remark": "Chuyên cần, đôi lúc vắng",
@@ -2853,7 +2855,7 @@
     },
     {
       "grade_id": 5,
-      "student_id": 5,
+      "user_id": 5,
       "class_id": 1,
       "attendance_score": 92,
       "attendance_remark": "Đi học đầy đủ",
@@ -2880,7 +2882,7 @@
     },
     {
       "grade_id": 6,
-      "student_id": 10,
+      "user_id": 10,
       "class_id": 2,
       "attendance_score": 93,
       "attendance_remark": "Chuyên cần",
@@ -2907,7 +2909,7 @@
     },
     {
       "grade_id": 7,
-      "student_id": 11,
+      "user_id": 11,
       "class_id": 2,
       "attendance_score": 90,
       "attendance_remark": "Đi học khá đều",
@@ -2934,7 +2936,7 @@
     },
     {
       "grade_id": 8,
-      "student_id": 12,
+      "user_id": 12,
       "class_id": 2,
       "attendance_score": 97,
       "attendance_remark": "Không vắng buổi nào",
@@ -2961,7 +2963,7 @@
     },
     {
       "grade_id": 9,
-      "student_id": 13,
+      "user_id": 13,
       "class_id": 2,
       "attendance_score": 85,
       "attendance_remark": "Thỉnh thoảng vắng",
@@ -2988,7 +2990,7 @@
     },
     {
       "grade_id": 10,
-      "student_id": 1,
+      "user_id": 1,
       "class_id": 2,
       "attendance_score": 96,
       "attendance_remark": "Rất chuyên cần",
@@ -3015,7 +3017,7 @@
     },
     {
       "grade_id": 11,
-      "student_id": 14,
+      "user_id": 14,
       "class_id": 3,
       "attendance_score": 94,
       "attendance_remark": "Đi học đều",
@@ -3042,7 +3044,7 @@
     },
     {
       "grade_id": 12,
-      "student_id": 15,
+      "user_id": 15,
       "class_id": 3,
       "attendance_score": 91,
       "attendance_remark": "Chuyên cần",
@@ -3069,7 +3071,7 @@
     },
     {
       "grade_id": 13,
-      "student_id": 16,
+      "user_id": 16,
       "class_id": 3,
       "attendance_score": 88,
       "attendance_remark": "Thi thoảng đi muộn",
@@ -3096,7 +3098,7 @@
     },
     {
       "grade_id": 14,
-      "student_id": 17,
+      "user_id": 17,
       "class_id": 3,
       "attendance_score": 92,
       "attendance_remark": "Đi học đầy đủ",
@@ -3123,7 +3125,7 @@
     },
     {
       "grade_id": 15,
-      "student_id": 18,
+      "user_id": 18,
       "class_id": 4,
       "attendance_score": 95,
       "attendance_remark": "Chuyên cần",
@@ -3150,7 +3152,7 @@
     },
     {
       "grade_id": 16,
-      "student_id": 19,
+      "user_id": 19,
       "class_id": 4,
       "attendance_score": 93,
       "attendance_remark": "Đi học đầy đủ",
@@ -3177,7 +3179,7 @@
     },
     {
       "grade_id": 17,
-      "student_id": 20,
+      "user_id": 20,
       "class_id": 4,
       "attendance_score": 90,
       "attendance_remark": "Chuyên cần",
@@ -3204,7 +3206,7 @@
     },
     {
       "grade_id": 18,
-      "student_id": 21,
+      "user_id": 21,
       "class_id": 4,
       "attendance_score": 96,
       "attendance_remark": "Không vắng buổi nào",
@@ -3231,7 +3233,7 @@
     },
     {
       "grade_id": 19,
-      "student_id": 22,
+      "user_id": 22,
       "class_id": 4,
       "attendance_score": 89,
       "attendance_remark": "Thi thoảng đi muộn",
@@ -3258,7 +3260,7 @@
     },
     {
       "grade_id": 20,
-      "student_id": 24,
+      "user_id": 24,
       "class_id": 7,
       "attendance_score": 94,
       "attendance_remark": "Chuyên cần",
@@ -3285,7 +3287,7 @@
     },
     {
       "grade_id": 21,
-      "student_id": 25,
+      "user_id": 25,
       "class_id": 7,
       "attendance_score": 91,
       "attendance_remark": "Đi học đều",
@@ -3312,7 +3314,7 @@
     },
     {
       "grade_id": 22,
-      "student_id": 26,
+      "user_id": 26,
       "class_id": 7,
       "attendance_score": 96,
       "attendance_remark": "Không vắng buổi nào",
@@ -3339,7 +3341,7 @@
     },
     {
       "grade_id": 23,
-      "student_id": 27,
+      "user_id": 27,
       "class_id": 7,
       "attendance_score": 88,
       "attendance_remark": "Thi thoảng vắng",
@@ -3366,7 +3368,7 @@
     },
     {
       "grade_id": 24,
-      "student_id": 28,
+      "user_id": 28,
       "class_id": 7,
       "attendance_score": 92,
       "attendance_remark": "Đi học đầy đủ",
@@ -3393,7 +3395,7 @@
     },
     {
       "grade_id": 25,
-      "student_id": 29,
+      "user_id": 29,
       "class_id": 7,
       "attendance_score": 90,
       "attendance_remark": "Chuyên cần",
@@ -3420,7 +3422,7 @@
     },
     {
       "grade_id": 26,
-      "student_id": 30,
+      "user_id": 30,
       "class_id": 7,
       "attendance_score": 95,
       "attendance_remark": "Rất chuyên cần",
@@ -3447,7 +3449,7 @@
     },
     {
       "grade_id": 31,
-      "student_id": 35,
+      "user_id": 35,
       "class_id": 7,
       "attendance_score": 95,
       "attendance_remark": "Rất chuyên cần",
@@ -3474,7 +3476,7 @@
     },
     {
       "grade_id": 32,
-      "student_id": 36,
+      "user_id": 36,
       "class_id": 7,
       "attendance_score": 88,
       "attendance_remark": "Thi thoảng đi muộn",
@@ -3501,7 +3503,7 @@
     },
     {
       "grade_id": 33,
-      "student_id": 37,
+      "user_id": 37,
       "class_id": 7,
       "attendance_score": 93,
       "attendance_remark": "Chuyên cần",
@@ -3528,7 +3530,7 @@
     },
     {
       "grade_id": 34,
-      "student_id": 38,
+      "user_id": 38,
       "class_id": 7,
       "attendance_score": 92,
       "attendance_remark": "Đi học đầy đủ",
@@ -3555,7 +3557,7 @@
     },
     {
       "grade_id": 35,
-      "student_id": 39,
+      "user_id": 39,
       "class_id": 7,
       "attendance_score": 90,
       "attendance_remark": "Chuyên cần",
@@ -3582,7 +3584,7 @@
     },
     {
       "grade_id": 36,
-      "student_id": 40,
+      "user_id": 40,
       "class_id": 7,
       "attendance_score": 95,
       "attendance_remark": "Rất chuyên cần",
@@ -3609,7 +3611,7 @@
     },
     {
       "grade_id": 37,
-      "student_id": 41,
+      "user_id": 41,
       "class_id": 7,
       "attendance_score": 89,
       "attendance_remark": "Đi học khá đều",
@@ -3636,7 +3638,7 @@
     },
     {
       "grade_id": 38,
-      "student_id": 42,
+      "user_id": 42,
       "class_id": 7,
       "attendance_score": 93,
       "attendance_remark": "Chuyên cần",
@@ -3663,7 +3665,7 @@
     },
     {
       "grade_id": 39,
-      "student_id": 43,
+      "user_id": 43,
       "class_id": 7,
       "attendance_score": 92,
       "attendance_remark": "Đi học đầy đủ",
@@ -3690,7 +3692,7 @@
     },
     {
       "grade_id": 40,
-      "student_id": 44,
+      "user_id": 44,
       "class_id": 7,
       "attendance_score": 90,
       "attendance_remark": "Chuyên cần",
@@ -3717,7 +3719,7 @@
     },
     {
       "grade_id": 41,
-      "student_id": 45,
+      "user_id": 45,
       "class_id": 7,
       "attendance_score": 95,
       "attendance_remark": "Rất chuyên cần",
@@ -3744,7 +3746,7 @@
     },
     {
       "grade_id": 42,
-      "student_id": 46,
+      "user_id": 46,
       "class_id": 7,
       "attendance_score": 89,
       "attendance_remark": "Đi học khá đều",
@@ -3771,7 +3773,7 @@
     },
     {
       "grade_id": 43,
-      "student_id": 47,
+      "user_id": 47,
       "class_id": 7,
       "attendance_score": 93,
       "attendance_remark": "Chuyên cần",
@@ -3798,7 +3800,7 @@
     },
     {
       "grade_id": 44,
-      "student_id": 48,
+      "user_id": 48,
       "class_id": 7,
       "attendance_score": 92,
       "attendance_remark": "Đi học đầy đủ",
@@ -3825,7 +3827,7 @@
     },
     {
       "grade_id": 45,
-      "student_id": 49,
+      "user_id": 49,
       "class_id": 7,
       "attendance_score": 90,
       "attendance_remark": "Chuyên cần",
@@ -3852,7 +3854,7 @@
     },
     {
       "grade_id": 46,
-      "student_id": 50,
+      "user_id": 50,
       "class_id": 7,
       "attendance_score": 95,
       "attendance_remark": "Rất chuyên cần",
@@ -3963,7 +3965,7 @@
   "feedbacks": [
     {
       "feedback_id": 1,
-      "student_id": 1,
+      "user_id": 1,
       "course_id": 1,
       "class_id": 1,
       "rating": 5,
@@ -3973,7 +3975,7 @@
     },
     {
       "feedback_id": 2,
-      "student_id": 10,
+      "user_id": 10,
       "course_id": 1,
       "class_id": 2,
       "rating": 4,
@@ -3983,7 +3985,7 @@
     },
     {
       "feedback_id": 3,
-      "student_id": 2,
+      "user_id": 2,
       "course_id": 1,
       "class_id": 1,
       "rating": 3,
@@ -3993,7 +3995,7 @@
     },
     {
       "feedback_id": 4,
-      "student_id": 11,
+      "user_id": 11,
       "course_id": 1,
       "class_id": 2,
       "rating": 4,
@@ -4003,7 +4005,7 @@
     },
     {
       "feedback_id": 5,
-      "student_id": 3,
+      "user_id": 3,
       "course_id": 1,
       "class_id": 1,
       "rating": 2,
@@ -4013,7 +4015,7 @@
     },
     {
       "feedback_id": 6,
-      "student_id": 14,
+      "user_id": 14,
       "course_id": 2,
       "class_id": 3,
       "rating": 5,
@@ -4023,7 +4025,7 @@
     },
     {
       "feedback_id": 7,
-      "student_id": 15,
+      "user_id": 15,
       "course_id": 2,
       "class_id": 3,
       "rating": 4,
@@ -4033,7 +4035,7 @@
     },
     {
       "feedback_id": 8,
-      "student_id": 18,
+      "user_id": 18,
       "course_id": 3,
       "class_id": 4,
       "rating": 3,
@@ -4043,7 +4045,7 @@
     },
     {
       "feedback_id": 9,
-      "student_id": 19,
+      "user_id": 19,
       "course_id": 3,
       "class_id": 4,
       "rating": 5,
@@ -4053,7 +4055,7 @@
     },
     {
       "feedback_id": 10,
-      "student_id": 20,
+      "user_id": 20,
       "course_id": 3,
       "class_id": 4,
       "rating": 4,
