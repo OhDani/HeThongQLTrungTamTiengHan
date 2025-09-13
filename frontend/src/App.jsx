@@ -7,6 +7,7 @@ import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
 import AdminEmployees from "./pages/dashboard/admin/AdminEmployees.jsx";
 import AdminOverview from "./pages/dashboard/admin/AdminOverview.jsx";
 import AdminFeedback from "./pages/dashboard/admin/AdminFeedback.jsx";
+import AdminNotification from "./pages/dashboard/admin/AdminNotification.jsx";
 
 
 import DashboardLayout from "./components/layout/DashboardLayout";
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="admin/employees" element={<AdminEmployees />} />
         <Route path="admin/overview" element={<AdminOverview />} />
         <Route path="admin/feedback" element={<AdminFeedback />} />
+        <Route path="admin/notification" element={<AdminNotification />} />
 
 
       </Route>
