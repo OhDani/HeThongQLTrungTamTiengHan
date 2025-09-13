@@ -6,6 +6,8 @@ import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
 
 import AdminEmployees from "./pages/dashboard/admin/AdminEmployees.jsx";
 import AdminOverview from "./pages/dashboard/admin/AdminOverview.jsx";
+import AdminFeedback from "./pages/dashboard/admin/AdminFeedback.jsx";
+
 
 import DashboardLayout from "./components/layout/DashboardLayout";
 import { useAuth } from "./contexts/AuthContext";
@@ -28,6 +30,7 @@ export default function App() {
 
         <Route path="admin/employees" element={<AdminEmployees />} />
         <Route path="admin/overview" element={<AdminOverview />} />
+        <Route path="admin/feedback" element={<AdminFeedback />} />
 
 
       </Route>
