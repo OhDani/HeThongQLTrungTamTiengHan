@@ -5,6 +5,7 @@ import StudentSchedulePage from "./pages/dashboard/student/StudentSchedule.jsx";
 import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
 
 import AdminEmployees from "./pages/dashboard/admin/AdminEmployees.jsx";
+import AdminOverview from "./pages/dashboard/admin/AdminOverview.jsx";
 
 import DashboardLayout from "./components/layout/DashboardLayout";
 import { useAuth } from "./contexts/AuthContext";
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="student/grades" element={<StudentGradesPage />} />
 
         <Route path="admin/employees" element={<AdminEmployees />} />
+        <Route path="admin/overview" element={<AdminOverview />} />
 
 
       </Route>

@@ -25,7 +25,7 @@ const Table = ({ columns, data }) => {
                     key={col.key}
                     className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
                   >
-                    {row[col.key]}
+                    {col.render ? col.render(row) : row[col.key]} 
                   </td>
                 ))}
               </tr>
