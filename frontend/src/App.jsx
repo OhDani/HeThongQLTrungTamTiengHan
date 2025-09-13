@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
 import StudentSchedulePage from "./pages/dashboard/student/StudentSchedule.jsx";
-// import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
+import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
 
 // import AdminEmployees from "./pages/dashboard/admin/AdminEmployees.jsx";
 
@@ -24,9 +24,9 @@ export default function App() {
         <Route path="student/overview" element={<StudentOverview />} />
         
         <Route path="student/schedule" element={<StudentSchedulePage />} />
-        {/* <Route path="student/grades" element={<StudentGradesPage />} />
+        <Route path="student/grades" element={<StudentGradesPage />} />
 
-        <Route path="admin/employees" element={<AdminEmployees />} /> */}
+        {/* <Route path="admin/employees" element={<AdminEmployees />} /> */}
 
 
       </Route>
