@@ -24,6 +24,9 @@ import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
 import StudentFeedback from "./pages/dashboard/student/StudentFeedback.jsx";
 import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 
+import ManagerStudent from "./pages/dashboard/manager/ManagerStudent.jsx";
+
+
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? children : <Navigate to="/login" replace />;
@@ -55,6 +58,9 @@ export default function App() {
         <Route path="teacher/attendance" element={<TeacherAttendance />} />
         <Route path="teacher/attendance/:classId" element={<TeacherAttendanceDetail />} />
         <Route path="teacher/assignments" element={<TeacherAssignmentPage />} />
+
+        <Route path="manager/profile" element={<UserProfile />} />
+        <Route path="manager/students" element={<ManagerStudent />} />
 
 
       </Route>
