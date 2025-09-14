@@ -7,6 +7,7 @@ import {
   assignmentApi,
   flashcardApi,
   feedbackApi,
+  courseApi,
 } from "./api";
 
 /** ===============================
@@ -48,7 +49,6 @@ export const getStudentClasses = async (studentId) => {
       };
     });
 };
-
 
 // Lấy tất cả assignments của học viên, kèm flashcards
 export const getStudentAssignments = async (studentId) => {
@@ -261,14 +261,123 @@ export const getStudentFeedbacks = async (studentId) => {
 };
 
 // Gửi feedback mới
-export const createFeedback = async ({ user_id, class_id, course_id, rating, comment }) => {
+export const createFeedback = async ({
+  user_id,
+  class_id,
+  course_id,
+  rating,
+  comment,
+}) => {
   const payload = {
     user_id,
     class_id,
-    course_id, 
+    course_id,
     rating,
     comment,
     created_at: new Date().toISOString(),
   };
   return feedbackApi.create(payload);
 };
+
+/** ===============================
+ * BÀI TẬP
+ * =============================== */
+
+// Lấy assignments kèm trạng thái + chấm điểm
+export const getStudentAssignmentsWithStatus = async (studentId) => {
+  const assignments = await assignmentApi.getAll();
+  const submissions = await submissionApi.getAll();
+  const classes = await classApi.getAll();
+  const courses = await courseApi.getAll();
+  const enrollments = await enrollmentApi.getAll();
+
+  // lấy danh sách class mà học viên này học
+  const myClassIds = enrollments
+    .filter((en) => Number(en.user_id) === Number(studentId))
+    .map((en) => Number(en.class_id));
+
+  return (
+    assignments
+      // chỉ lấy assignment thuộc những lớp mà học viên đó học
+      .filter((a) => myClassIds.includes(Number(a.class_id)))
+      .map((a) => {
+        // tìm submission của học viên này cho assignment này
+        const submission = submissions.find(
+          (s) =>
+            Number(s.user_id) === Number(studentId) &&
+            Number(s.material_id) === Number(a.material_id)
+        );
+
+        const grade =
+          submission?.grade !== undefined
+            ? {
+                assignment_score: submission.grade,
+                feedback: submission.feedback,
+                corrected_file_url: submission.corrected_file_url,
+              }
+            : null;
+
+        const dueDate = a.due_date ? new Date(a.due_date) : null;
+        const submittedAt = submission?.submitted_at
+          ? new Date(submission.submitted_at)
+          : null;
+
+        let status = "Chưa nộp";
+        if (submittedAt) {
+          status = "Đã nộp";
+          if (grade && grade.assignment_score !== null) status = "Đã chấm điểm";
+          // nếu có nộp nhưng sau hạn thì:
+          if (dueDate && submittedAt > dueDate) status = "Nộp trễ";
+        } else if (dueDate && new Date() > dueDate) {
+          status = "Quá hạn";
+        }
+
+        const classInfo = classes.find(
+          (c) => Number(c.class_id) === Number(a.class_id)
+        );
+        const courseInfo = courses.find(
+          (c) => Number(c.course_id) === Number(classInfo?.course_id)
+        );
+
+        return {
+          ...a,
+          submission,
+          grade,
+          status,
+          class_name: classInfo?.class_name ?? null,
+          course_name: courseInfo?.course_name ?? null,
+        };
+      })
+  );
+};
+
+//AssignmentModal.jsx
+export async function submitAssignment(assignmentId, file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return fetch(`${API_URL}/api/assignments/${assignmentId}/submit`, { 
+    method: 'POST',
+    body: formData,
+    credentials: 'include'
+  }).then(res => res.json());
+}
+
+export async function updateAssignmentSubmission(assignmentId, file) {
+  const formData = new FormData();
+  formData.append("file", file);
+  return fetch(`${API_URL}/api/assignments/${assignmentId}/edit-submission`, {
+    method: "PATCH",  
+    body: formData,
+    credentials: "include",
+  }).then((res) => {
+    if (!res.ok) throw new Error("Update failed");
+    return res.json();
+  });
+}
+
+export async function deleteAssignmentSubmission(assignmentId) {
+  return fetch(`${API_URL}/api/assignments/${assignmentId}/delete-submission`, { 
+    method: 'DELETE',
+    credentials: 'include'
+  }).then(res => res.json());
+}
