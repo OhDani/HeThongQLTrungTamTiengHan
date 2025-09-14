@@ -39,7 +39,7 @@ const TeacherAttendanceDetail = () => {
                 );
 
                 const classStudents = classEnrollments
-                    .map((en) => usersResponse.find((u) => u.user_id === en.student_id))
+                    .map((en) => usersResponse.find((u) => u.user_id === en.user_id))
                     .filter(Boolean);
 
                 setStudents(classStudents);
@@ -70,7 +70,7 @@ const TeacherAttendanceDetail = () => {
         const initialStatus = {};
         students.forEach((student) => {
             const att = attendanceData.find(
-                (a) => a.student_id === student.user_id && a.date === selectedDate
+                (a) => a.user_id === student.user_id && a.date === selectedDate
             );
             initialStatus[student.user_id] = att ? att.status : "Vắng";
         });
@@ -87,7 +87,7 @@ const TeacherAttendanceDetail = () => {
 
             const updates = students.map((student) => {
                 const current = attendanceData.find(
-                    (a) => a.student_id === student.user_id && a.date === selectedDate
+                    (a) => a.user_id === student.user_id && a.date === selectedDate
                 );
                 if (current) {
                     return attendanceApi.update(current.id, {
@@ -96,7 +96,7 @@ const TeacherAttendanceDetail = () => {
                     });
                 } else {
                     return attendanceApi.create({
-                        student_id: student.user_id,
+                        user_id: student.user_id,
                         class_id: parseInt(classId),
                         date: selectedDate,
                         status: editStatus[student.user_id],
@@ -215,7 +215,7 @@ const TeacherAttendanceDetail = () => {
                                     { key: "status", label: "Trạng thái" },
                                 ]}
                                 data={attendanceData
-                                    .filter((a) => a.student_id === expandedStudentId)
+                                    .filter((a) => a.user_id === expandedStudentId)
                                     .sort((a, b) => a.date.localeCompare(b.date))}
                             />
                             <div className="mt-4 text-right">

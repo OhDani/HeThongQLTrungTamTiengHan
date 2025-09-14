@@ -60,7 +60,7 @@ const TeacherEnterGrades = () => {
         const studentsInClass = enrollments
           .filter(e => e.class_id === parseInt(classId))
           .map(e => {
-            const student = users.find(u => u.user_id === e.student_id);
+            const student = users.find(u => u.user_id === e.user_id);
             return student ? { ...student, enrollment_id: e.enrollment_id } : null;
           })
           .filter(Boolean);
@@ -70,11 +70,11 @@ const TeacherEnterGrades = () => {
         const gradesObj = {};
         studentsInClass.forEach(student => {
           const g = gradesResponse.find(
-            g => g.student_id === student.user_id && g.class_id === parseInt(classId)
+            g => g.user_id === student.user_id && g.class_id === parseInt(classId)
           );
           gradesObj[student.user_id] = g
             ? { ...g }
-            : { student_id: student.user_id, class_id: parseInt(classId), id: '', overall_avg: '' };
+            : { user_id: student.user_id, class_id: parseInt(classId), id: '', overall_avg: '' };
         });
 
         setGrades(gradesObj);

@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+.react-calendar__tile,
+.react-calendar__tile:hover {
+    border-radius: 0.5rem;
+}

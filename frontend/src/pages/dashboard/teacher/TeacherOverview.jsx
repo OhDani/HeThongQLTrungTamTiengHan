@@ -43,7 +43,7 @@ const TeacherOverview = () => {
 
                 // Lọc các khóa học do giáo viên đang đăng nhập giảng dạy
                 const teacherCourses = classesResponse
-                    .filter((cls) => cls.teacher_id === user.user_id)
+                    .filter((cls) => cls.user_id === user.user_id)
                     .map((cls) => {
                         const course = coursesResponse.find((c) => c.course_id === cls.course_id);
                         return { ...course, ...cls };
@@ -55,7 +55,7 @@ const TeacherOverview = () => {
                         teacherCourses.some((tc) => tc.class_id === enroll.class_id)
                     )
                     .map((enroll) =>
-                        usersResponse.find((u) => u.user_id === enroll.student_id)
+                        usersResponse.find((u) => u.user_id === enroll.user_id)
                     )
                     .filter(Boolean);
 
@@ -111,12 +111,12 @@ const TeacherOverview = () => {
     const totalStudents = students.length;
     const activeStudents = students.filter((student) =>
         enrollments.some(
-            (en) => en.student_id === student.user_id && en.status === "Đang học"
+            (en) => en.user_id === student.user_id && en.status === "Đang học"
         )
     ).length;
     const completedStudents = students.filter((student) =>
         enrollments.some(
-            (en) => en.student_id === student.user_id && en.status === "Hoàn thành"
+            (en) => en.user_id === student.user_id && en.status === "Hoàn thành"
         )
     ).length;
 

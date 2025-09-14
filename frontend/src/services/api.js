@@ -1,13 +1,13 @@
-const API_URL = "http://localhost:3001"; // JSON Server chạy ở port 3001
+const API_URL = "http://localhost:3001";
 
-// Hàm chung cho mọi entity
-const createApi = (resource) => ({
+// Hàm chung để tạo các API object
+const createApi = (resource, idField = 'id') => ({
   getAll: async () => {
     const res = await fetch(`${API_URL}/${resource}`);
     return res.json();
   },
   getById: async (id) => {
-    const res = await fetch(`${API_URL}/${resource}/${id}`);
+    const res = await fetch(`${API_URL}/${resource}?${idField}=${id}`);
     return res.json();
   },
   create: async (data) => {
@@ -20,7 +20,8 @@ const createApi = (resource) => ({
   },
   update: async (id, data) => {
     const res = await fetch(`${API_URL}/${resource}/${id}`, {
-      method: "PUT",
+      // Đổi từ "PUT" sang "PATCH" để cập nhật từng phần
+      method: "PATCH", 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
@@ -31,36 +32,20 @@ const createApi = (resource) => ({
       method: "DELETE",
     });
   },
-
-//Hàm dùng để thay đổi Ghi chú của Giảng viên với Học viên
-updateByUserId: async (userId, data) => {
-    // Lấy record theo user_id
-    const res = await fetch(`${API_URL}/${resource}?user_id=${userId}`);
-    const users = await res.json();
-    if (!users.length) throw new Error("User không tồn tại");
-
-    const id = users[0].id; // json-server tạo id tự động
-    const resUpdate = await fetch(`${API_URL}/${resource}/${id}`, {
-      method: "PATCH", // PATCH chỉ update 1 phần
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    return resUpdate.json();
-  },
 });
 
 // Export API cho từng entity
-export const userApi = createApi("users");
-export const courseApi = createApi("courses");
-export const classApi = createApi("classes");
-export const enrollmentApi = createApi("enrollments");
-export const attendanceApi = createApi("attendance");
-export const assignmentApi = createApi("assignments");
-export const flashcardApi = createApi("flashcards");
-export const submissionApi = createApi("submissions");
-export const gradeApi = createApi("grades");
-export const notificationApi = createApi("notifications");
-export const feedbackApi = createApi("feedbacks");
-export const conversationApi = createApi("conversation");
-export const conversationmemberApi = createApi("conversationmember");
-export const messageApi = createApi("message");
+export const userApi = createApi("users", "user_id"); 
+export const courseApi = createApi("courses", "course_id"); 
+export const classApi = createApi("classes", "class_id"); 
+export const enrollmentApi = createApi("enrollments", "enrollment_id"); 
+export const attendanceApi = createApi("attendance", "attendance_id");
+export const assignmentApi = createApi("assignments", "material_id");
+export const flashcardApi = createApi("flashcards", "flashcard_id");
+export const submissionApi = createApi("submissions", "submission_id");
+export const gradeApi = createApi("grades", "grade_id");
+export const notificationApi = createApi("notifications", "notification_id");
+export const feedbackApi = createApi("feedbacks", "feedback_id");
+export const conversationApi = createApi("conversation", "conversation_id");
+export const conversationmemberApi = createApi("conversationmember", "conversationmember_id");
+export const messageApi = createApi("message", "message_id");

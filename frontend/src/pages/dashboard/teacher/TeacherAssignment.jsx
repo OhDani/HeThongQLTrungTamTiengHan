@@ -42,7 +42,7 @@ const TeacherAssignment = () => {
         ]);
 
         const myClasses = classesData
-          .filter((c) => Number(c.teacher_id) === teacherId)
+          .filter((c) => Number(c.user_id) === teacherId)
           .map((cls) => {
             const course = coursesData.find((c) => c.course_id === cls.course_id);
             return {
@@ -91,7 +91,7 @@ const TeacherAssignment = () => {
         material_id: materialId,
         id: Date.now().toString().slice(-4),
         class_id: Number(form.classId),
-        teacher_id: user ? Number(user.user_id) : null,
+        user_id: user ? Number(user.user_id) : null,
         title: form.title,
         description: form.type === "Bài tập" ? form.description : form.description || null,
         file_url: form.file ? form.file.name : null,

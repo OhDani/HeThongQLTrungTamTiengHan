@@ -21,16 +21,16 @@ const LoginPage = () => {
     if (foundUser) {
       switch (foundUser.role) {
         case "Học viên":
-          navigate("/dashboard/student");
+          navigate("/dashboard/student/overview");
           break;
         case "Giảng viên":
           navigate("/dashboard/teacher/overview");
           break;
         case "Quản lý học vụ":
-          navigate("/dashboard/manager");
+          navigate("/dashboard/manager/overview");
           break;
         case "Quản lý hệ thống":
-          navigate("/dashboard/admin");
+          navigate("/dashboard/admin/overview");
           break;
         default:
           navigate("/login");

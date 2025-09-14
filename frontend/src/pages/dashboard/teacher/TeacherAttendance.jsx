@@ -37,7 +37,7 @@ const TeacherAttendance = () => {
                 ]);
 
                 const teacherClasses = classesResponse
-                    .filter((cls) => cls.teacher_id === user.user_id)
+                    .filter((cls) => cls.user_id === user.user_id)
                     .map((cls) => {
                         const course = coursesResponse.find((c) => c.course_id === cls.course_id);
                         return {
@@ -75,14 +75,14 @@ const TeacherAttendance = () => {
                 const classStudents = enrollmentsResponse
                     .filter((enroll) => enroll.class_id === parseInt(selectedClass))
                     .map((enroll) => {
-                        const student = usersResponse.find(u => u.user_id === enroll.student_id);
+                        const student = usersResponse.find(u => u.user_id === enroll.user_id);
                         return student ? { ...student, enrollment_id: enroll.enrollment_id } : null;
                     })
                     .filter(Boolean);
 
                 const initialAttendance = classStudents.reduce((acc, student) => {
                     const att = attendanceResponse.find(a =>
-                        a.student_id === student.user_id &&
+                        a.user_id === student.user_id &&
                         a.class_id === parseInt(selectedClass) &&
                         a.date === selectedDate
                     );
@@ -115,7 +115,7 @@ const TeacherAttendance = () => {
 
             const attendanceData = Object.entries(attendance).map(([studentId, status]) => ({
                 class_id: parseInt(selectedClass),
-                student_id: parseInt(studentId),
+                user_id: parseInt(studentId),
                 date: selectedDate,
                 status,
             }));
@@ -128,7 +128,7 @@ const TeacherAttendance = () => {
             const updatedAttendance = await attendanceApi.getAll();
             const newAttendanceState = students.reduce((acc, student) => {
                 const att = updatedAttendance.find(a =>
-                    a.student_id === student.user_id &&
+                    a.user_id === student.user_id &&
                     a.class_id === parseInt(selectedClass) &&
                     a.date === selectedDate
                 );

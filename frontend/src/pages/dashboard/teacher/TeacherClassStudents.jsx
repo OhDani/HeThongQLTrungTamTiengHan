@@ -33,7 +33,7 @@ const TeacherClassStudents = () => {
 
         const classStudents = enrollments
           .filter((en) => en.class_id === parseInt(classId))
-          .map((en) => users.find((u) => u.user_id === en.student_id))
+          .map((en) => users.find((u) => u.user_id === en.user_id))
           .filter(Boolean);
 
         setStudents(classStudents);

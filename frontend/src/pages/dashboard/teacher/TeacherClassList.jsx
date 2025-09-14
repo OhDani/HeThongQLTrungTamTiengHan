@@ -31,14 +31,14 @@ const TeacherClassList = () => {
         ]);
 
         const teacherCourses = classes
-          .filter((cls) => cls.teacher_id === user.user_id)
+          .filter((cls) => cls.user_id === user.user_id)
           .map((cls) => {
             const course = courses.find((c) => c.course_id === cls.course_id);
             const studentCount = enrollments.filter(en => en.class_id === cls.class_id).length;
             return {
               ...course,
               ...cls,
-              teacherName: users.find((u) => u.user_id === cls.teacher_id)?.full_name || "Unknown",
+              teacherName: users.find((u) => u.user_id === cls.user_id)?.full_name || "Unknown",
               studentCount,
             };
           });
