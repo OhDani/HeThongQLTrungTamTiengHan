@@ -1,18 +1,21 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
-import StudentDashboard from "./pages/dashboard/student/StudentOverview.jsx";
-import StudentSchedulePage from "./pages/dashboard/student/StudentSchedule.jsx";
-import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import { useAuth } from "./contexts/AuthContext";
+import "./App.css";
 
 import AdminEmployees from "./pages/dashboard/admin/AdminEmployees.jsx";
 import AdminOverview from "./pages/dashboard/admin/AdminOverview.jsx";
 import AdminFeedback from "./pages/dashboard/admin/AdminFeedback.jsx";
 import AdminNotification from "./pages/dashboard/admin/AdminNotification.jsx";
 
-
-import DashboardLayout from "./components/layout/DashboardLayout";
-import { useAuth } from "./contexts/AuthContext";
-import "./App.css";
+import StudentOverview from "./pages/dashboard/student/StudentOverview.jsx";
+import StudentSchedulePage from "./pages/dashboard/student/StudentSchedule.jsx";
+import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
+import StudentMaterials from "./pages/dashboard/student/StudentMaterials.jsx";
+import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
+import StudentFeedback from "./pages/dashboard/student/StudentFeedback.jsx";
+import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -25,16 +28,18 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
 
       <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
-        <Route path="student/overview" element={<StudentDashboard />} />
+        <Route path="student/overview" element={<StudentOverview />} />
         <Route path="student/schedule" element={<StudentSchedulePage />} />
         <Route path="student/grades" element={<StudentGradesPage />} />
+        <Route path="student/materials" element={<StudentMaterials />} />
+        <Route path="student/flashcards/:materialId" element={<AllVocabPage />} />
+        <Route path="student/feedback" element={<StudentFeedback />} />
 
+        <Route path="student/profile" element={<UserProfile />} />
         <Route path="admin/employees" element={<AdminEmployees />} />
         <Route path="admin/overview" element={<AdminOverview />} />
         <Route path="admin/feedback" element={<AdminFeedback />} />
         <Route path="admin/notification" element={<AdminNotification />} />
-
-
       </Route>
 
 

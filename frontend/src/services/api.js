@@ -10,17 +10,17 @@ const createApi = (resource, idField = 'id') => ({
     const res = await fetch(`${API_URL}/${resource}?${idField}=${id}`);
     return res.json();
   },
-  create: async (data) => {
-    const res = await fetch(`${API_URL}/${resource}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    return res.json();
-  },
+ create: async (data) => {
+  const res = await fetch(`${API_URL}/${resource}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+},
   update: async (id, data) => {
     const res = await fetch(`${API_URL}/${resource}/${id}`, {
-      method: "PUT",
+      // Sử dụng phương thức PATCH để cập nhật từng phần
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
@@ -34,10 +34,10 @@ const createApi = (resource, idField = 'id') => ({
 });
 
 // Export API cho từng entity
-export const userApi = createApi("users", "user_id"); 
-export const courseApi = createApi("courses", "course_id"); 
-export const classApi = createApi("classes", "class_id"); 
-export const enrollmentApi = createApi("enrollments", "enrollment_id"); 
+export const userApi = createApi("users", "user_id");
+export const courseApi = createApi("courses", "course_id");
+export const classApi = createApi("classes", "class_id");
+export const enrollmentApi = createApi("enrollments", "enrollment_id");
 export const attendanceApi = createApi("attendance", "attendance_id");
 export const assignmentApi = createApi("assignments", "material_id");
 export const flashcardApi = createApi("flashcards", "flashcard_id");
