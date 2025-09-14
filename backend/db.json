@@ -1860,6 +1860,41 @@
       "date": "2024-02-11",
       "status": "Có mặt",
       "id": "5bc3"
+    },
+    {
+      "id": "f054",
+      "class_id": 2,
+      "user_id": 1,
+      "date": "2025-09-14",
+      "status": "Vắng"
+    },
+    {
+      "id": "6f1e",
+      "class_id": 2,
+      "user_id": 10,
+      "date": "2025-09-14",
+      "status": "Vắng"
+    },
+    {
+      "id": "9ce1",
+      "class_id": 2,
+      "user_id": 11,
+      "date": "2025-09-14",
+      "status": "Vắng"
+    },
+    {
+      "id": "93de",
+      "class_id": 2,
+      "user_id": 12,
+      "date": "2025-09-14",
+      "status": "Vắng"
+    },
+    {
+      "id": "227e",
+      "class_id": 2,
+      "user_id": 13,
+      "date": "2025-09-14",
+      "status": "Vắng"
     }
   ],
   "assignments": [
@@ -2086,6 +2121,90 @@
       "category": "Tài liệu tham khảo",
       "created_at": "2024-03-18 08:50:00",
       "id": "4cfc"
+    },
+    {
+      "id": "4939",
+      "material_id": 1757840474939,
+      "class_id": 4,
+      "user_id": 6,
+      "title": "bài test",
+      "description": "làm",
+      "file_url": null,
+      "url": "htt...1",
+      "due_date": "2025-09-27",
+      "type": "Bài tập",
+      "category": null,
+      "created_at": "2025-09-14 09:01:14"
+    },
+    {
+      "id": "1627",
+      "material_id": 1757842261627,
+      "class_id": 4,
+      "user_id": 6,
+      "title": "xin chào",
+      "description": "link",
+      "file_url": null,
+      "url": "https://docs.google.com/spreadsheets/d/1cN7nZj4L5qoUMbUSkutcewYhah0pIwN_rvaveURZcno/edit?hl=vi&gid=568023280#gid=568023280",
+      "due_date": "2025-10-03",
+      "type": "Bài tập",
+      "category": null,
+      "created_at": "2025-09-14 09:31:01"
+    },
+    {
+      "id": "6386",
+      "material_id": 1757844616386,
+      "class_id": 6,
+      "user_id": 6,
+      "title": "Test",
+      "description": null,
+      "file_url": "CSDL.docx",
+      "url": "https://docs.google.com/spreadsheets/d/1cN7nZj4L5qoUMbUSkutcewYhah0pIwN_rvaveURZcno/edit?hl=vi&gid=568023280#gid=568023280",
+      "due_date": null,
+      "type": "Tài liệu",
+      "category": "Từ vựng",
+      "created_at": "2025-09-14 10:10:16"
+    },
+    {
+      "id": "7441",
+      "material_id": 1757846787441,
+      "class_id": 4,
+      "user_id": 6,
+      "title": "sd",
+      "description": "dfff",
+      "file_url": null,
+      "url": "qSQW",
+      "due_date": "2025-09-05",
+      "type": "Bài tập",
+      "category": null,
+      "created_at": "2025-09-14 10:46:27"
+    },
+    {
+      "id": "5788",
+      "material_id": 1757847005788,
+      "class_id": 4,
+      "user_id": 6,
+      "title": "ggg",
+      "description": null,
+      "file_url": null,
+      "url": "gggg",
+      "due_date": null,
+      "type": "Tài liệu",
+      "category": "Từ vựng",
+      "created_at": "2025-09-14 10:50:05"
+    },
+    {
+      "id": "1890",
+      "material_id": 1757861781890,
+      "class_id": 4,
+      "user_id": 6,
+      "title": "sffdr",
+      "description": "trhtht",
+      "file_url": null,
+      "url": "htjt",
+      "due_date": "2025-09-06",
+      "type": "Bài tập",
+      "category": null,
+      "created_at": "2025-09-14 14:56:21"
     }
   ],
   "flashcards": [
@@ -2176,6 +2295,54 @@
       "definition": "Quầy tính tiền",
       "image_url": "images/shopping/counter.png",
       "id": "e76a"
+    },
+    {
+      "id": "5sby",
+      "flashcard_id": 1757844616400,
+      "material_id": 1757844616386,
+      "term": "từ 1",
+      "definition": "2",
+      "image_url": "6cf0ffdb-47bb-4028-9225-da5d6ff693cc.jpg"
+    },
+    {
+      "id": "te69",
+      "flashcard_id": 1757844616401,
+      "material_id": 1757844616386,
+      "term": "3",
+      "definition": "4",
+      "image_url": "1659712018090.jpg"
+    },
+    {
+      "id": "u7ie",
+      "flashcard_id": 1757844616403,
+      "material_id": 1757844616386,
+      "term": "5",
+      "definition": "6",
+      "image_url": "images.jpg"
+    },
+    {
+      "id": "q7om",
+      "flashcard_id": 1757847005801,
+      "material_id": 1757847005788,
+      "term": "gg",
+      "definition": "g",
+      "image_url": null
+    },
+    {
+      "id": "yyuo",
+      "flashcard_id": 1757847005802,
+      "material_id": 1757847005788,
+      "term": "g",
+      "definition": "g",
+      "image_url": null
+    },
+    {
+      "id": "fro0",
+      "flashcard_id": 1757847005803,
+      "material_id": 1757847005788,
+      "term": "g",
+      "definition": "g",
+      "image_url": null
     }
   ],
   "submissions": [

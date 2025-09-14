@@ -2,11 +2,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
 import TeacherOverview from "./pages/dashboard/teacher/TeacherOverview.jsx";
 import TeacherClassList from "./pages/dashboard/teacher/TeacherClassList.jsx";
-import TeacherClassStudents from "./pages/dashboard/teacher/TeacherClassStudents.jsx"; 
+import TeacherClassStudents from "./pages/dashboard/teacher/TeacherClassStudents.jsx";
 import TeacherEnterGrades from "./pages/dashboard/teacher/TeacherEnterGrades.jsx";
 import TeacherAttendance from "./pages/dashboard/teacher/TeacherAttendance.jsx";
 import TeacherAttendanceDetail from "./pages/dashboard/teacher/TeacherAttendanceDetail.jsx";
 import TeacherAssignmentPage from "./pages/dashboard/teacher/TeacherAssignmentPage.jsx";
+import TeacherAssignmentPageDetail from "./pages/dashboard/teacher/TeacherAssignmentPageDetail.jsx";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import { useAuth } from "./contexts/AuthContext";
 import "./App.css";
@@ -49,12 +50,15 @@ export default function App() {
         <Route path="admin/notification" element={<AdminNotification />} />
 
         <Route path="teacher/overview" element={<TeacherOverview />} />
+        <Route path="teacher/profile" element={<UserProfile />} />
         <Route path="teacher/classes" element={<TeacherClassList />} />
-        <Route path="teacher/class-students/:classId" element={<TeacherClassStudents />} /> 
+        <Route path="teacher/class-students/:classId" element={<TeacherClassStudents />} />
         <Route path="teacher/enter-grades/:classId" element={<TeacherEnterGrades />} />
         <Route path="teacher/attendance" element={<TeacherAttendance />} />
         <Route path="teacher/attendance/:classId" element={<TeacherAttendanceDetail />} />
         <Route path="teacher/assignments" element={<TeacherAssignmentPage />} />
+        <Route path="teacher/assignments/:materialId/detail" element={<TeacherAssignmentPageDetail />} />
+
 
 
       </Route>
