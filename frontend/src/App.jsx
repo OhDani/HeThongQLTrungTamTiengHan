@@ -8,6 +8,7 @@ import AdminEmployees from "./pages/dashboard/admin/AdminEmployees.jsx";
 import AdminOverview from "./pages/dashboard/admin/AdminOverview.jsx";
 import AdminFeedback from "./pages/dashboard/admin/AdminFeedback.jsx";
 import AdminNotification from "./pages/dashboard/admin/AdminNotification.jsx";
+import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 
 
 import DashboardLayout from "./components/layout/DashboardLayout";
@@ -33,6 +34,9 @@ export default function App() {
         <Route path="admin/overview" element={<AdminOverview />} />
         <Route path="admin/feedback" element={<AdminFeedback />} />
         <Route path="admin/notification" element={<AdminNotification />} />
+
+        <Route path="admin/profile" element={<UserProfile />} />
+        <Route path="student/profile" element={<UserProfile />} />
 
 
       </Route>
