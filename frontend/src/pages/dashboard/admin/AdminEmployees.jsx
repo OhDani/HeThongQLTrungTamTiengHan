@@ -170,14 +170,14 @@ const AdminEmployees = () => {
       />
       {paginatedUsers.length ? <Table columns={columns} data={paginatedUsers} /> : <p className="text-gray-500">Không có dữ liệu.</p>}
       {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />}
-      
-     <Modal
-  isOpen={showForm}
-  onClose={() => setShowForm(false)}
-  title={editingUser ? "Sửa nhân viên" : "Thêm nhân viên"}
-  className="w-[800px] max-h-[95vh] overflow-y-auto"
-  backdropClassName="bg-gray-600/10 backdrop-blur-sm"
->
+
+      <Modal
+        isOpen={showForm}
+        onClose={() => setShowForm(false)}
+        title={editingUser ? "Sửa nhân viên" : "Thêm nhân viên"}
+        className="w-[800px] max-h-[95vh] overflow-y-auto"
+        backdropClassName="bg-gray-600/10 backdrop-blur-sm"
+      >
         <div onClick={(e) => e.stopPropagation()}>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
