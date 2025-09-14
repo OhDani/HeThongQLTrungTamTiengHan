@@ -65,10 +65,12 @@ export const getStudentAssignments = async (studentId) => {
         a.category?.toLowerCase() === "từ vựng"
           ? a.description?.split(/\s+/).length || 0
           : null,
-      // Gắn flashcards cho bài từ vựng
+      // Gắn flashcards cho bài từ vựng qua material_id
       flashcards:
-        a.category?.toLowerCase() === "từ vựng"
-          ? allFlashcards.filter((f) => Number(f.material_id) === Number(a.id))
+        a.category?.toLowerCase() === "từ vựng" && a.material_id
+          ? allFlashcards.filter(
+              (f) => Number(f.material_id) === Number(a.material_id)
+            )
           : [],
     }));
 };
