@@ -5,7 +5,8 @@ import {
   gradeApi,
   submissionApi,
   assignmentApi,
-  flashcardApi
+  flashcardApi,
+  feedbackApi,
 } from "./api";
 
 /** ===============================
@@ -28,8 +29,6 @@ export const getStudentClasses = async (studentId) => {
   const classes = await classApi.getAll();
   const teachers = await userApi.getAll();
 
-  if (!Array.isArray(classes) || !Array.isArray(teachers)) return [];
-
   return classes
     .filter((cls) =>
       myEnrollments.some((en) => Number(en.class_id) === Number(cls.class_id))
@@ -49,6 +48,7 @@ export const getStudentClasses = async (studentId) => {
       };
     });
 };
+
 
 // Lấy tất cả assignments của học viên, kèm flashcards
 export const getStudentAssignments = async (studentId) => {
@@ -245,4 +245,28 @@ export const getStudentOverview = async (studentId) => {
     getLatestStudentGrade(studentId),
   ]);
   return { studentInfo, latestGrade };
+};
+/** ===============================
+ * FEEDBACK HỌC VIÊN
+ * =============================== */
+
+// Lấy tất cả feedback của học viên
+export const getStudentFeedbacks = async (studentId) => {
+  const feedbacks = await feedbackApi.getAll();
+  return Array.isArray(feedbacks)
+    ? feedbacks.filter((f) => Number(f.user_id) === Number(studentId))
+    : [];
+};
+
+// Gửi feedback mới
+export const createFeedback = async ({ user_id, class_id, course_id, rating, comment }) => {
+  const payload = {
+    user_id,
+    class_id,
+    course_id, 
+    rating,
+    comment,
+    created_at: new Date().toISOString(),
+  };
+  return feedbackApi.create(payload);
 };
