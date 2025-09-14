@@ -24,7 +24,7 @@ const LoginPage = () => {
           navigate("/dashboard/student");
           break;
         case "Giảng viên":
-          navigate("/dashboard/teacher");
+          navigate("/dashboard/teacher/overview");
           break;
         case "Quản lý học vụ":
           navigate("/dashboard/manager");

@@ -31,6 +31,22 @@ const createApi = (resource) => ({
       method: "DELETE",
     });
   },
+
+//Hàm dùng để thay đổi Ghi chú của Giảng viên với Học viên
+updateByUserId: async (userId, data) => {
+    // Lấy record theo user_id
+    const res = await fetch(`${API_URL}/${resource}?user_id=${userId}`);
+    const users = await res.json();
+    if (!users.length) throw new Error("User không tồn tại");
+
+    const id = users[0].id; // json-server tạo id tự động
+    const resUpdate = await fetch(`${API_URL}/${resource}/${id}`, {
+      method: "PATCH", // PATCH chỉ update 1 phần
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return resUpdate.json();
+  },
 });
 
 // Export API cho từng entity

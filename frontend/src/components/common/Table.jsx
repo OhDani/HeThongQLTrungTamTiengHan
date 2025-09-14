@@ -1,6 +1,6 @@
 import React from "react";
 
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, rowClassName }) => {
   return (
     <div className="overflow-x-auto shadow-md rounded-lg">
       <table className="min-w-full divide-y divide-gray-200">
@@ -19,13 +19,13 @@ const Table = ({ columns, data }) => {
         <tbody className="bg-white divide-y divide-gray-200">
           {data && data.length > 0 ? (
             data.map((row, index) => (
-              <tr key={row.id || index} className="hover:bg-gray-100">
+              <tr key={row.id || index} className="rowClassName ? rowClassName(index) : hover:bg-gray-100">
                 {columns.map((col) => (
                   <td
                     key={col.key}
                     className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
                   >
-                    {row[col.key]}
+                    {col.render ? col.render(row, index) : row[col.key]}
                   </td>
                 ))}
               </tr>
@@ -47,3 +47,4 @@ const Table = ({ columns, data }) => {
 };
 
 export default Table;
+
