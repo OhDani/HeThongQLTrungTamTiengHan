@@ -10,6 +10,7 @@ import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
 import StudentMaterials from "./pages/dashboard/student/StudentMaterials.jsx";
 import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
 import StudentFeedback from "./pages/dashboard/student/StudentFeedback.jsx";
+import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -28,6 +29,8 @@ export default function App() {
         <Route path="student/materials" element={<StudentMaterials />} />
         <Route path="student/flashcards/:materialId" element={<AllVocabPage />} />
         <Route path="student/feedback" element={<StudentFeedback />} />
+
+        <Route path="student/profile" element={<UserProfile />} />
       </Route>
 
 
