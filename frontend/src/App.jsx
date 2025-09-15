@@ -10,10 +10,13 @@ import AdminFeedback from "./pages/dashboard/admin/AdminFeedback.jsx";
 import AdminNotification from "./pages/dashboard/admin/AdminNotification.jsx";
 import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 
-
-import DashboardLayout from "./components/layout/DashboardLayout";
-import { useAuth } from "./contexts/AuthContext";
-import "./App.css";
+import StudentOverview from "./pages/dashboard/student/StudentOverview.jsx";
+import StudentSchedulePage from "./pages/dashboard/student/StudentSchedule.jsx";
+import StudentGradesPage from "./pages/dashboard/student/StudentGrades.jsx";
+import StudentMaterials from "./pages/dashboard/student/StudentMaterials.jsx";
+import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
+import StudentFeedback from "./pages/dashboard/student/StudentFeedback.jsx";
+import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -34,6 +37,14 @@ export default function App() {
         <Route path="admin/overview" element={<AdminOverview />} />
         <Route path="admin/feedback" element={<AdminFeedback />} />
         <Route path="admin/notification" element={<AdminNotification />} />
+
+        <Route path="teacher/overview" element={<TeacherOverview />} />
+        <Route path="teacher/classes" element={<TeacherClassList />} />
+        <Route path="teacher/class-students/:classId" element={<TeacherClassStudents />} /> 
+        <Route path="teacher/enter-grades/:classId" element={<TeacherEnterGrades />} />
+        <Route path="teacher/attendance" element={<TeacherAttendance />} />
+        <Route path="teacher/attendance/:classId" element={<TeacherAttendanceDetail />} />
+        <Route path="teacher/assignments" element={<TeacherAssignmentPage />} />
 
         <Route path="admin/profile" element={<UserProfile />} />
         <Route path="student/profile" element={<UserProfile />} />

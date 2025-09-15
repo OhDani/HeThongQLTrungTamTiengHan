@@ -7,7 +7,7 @@ import Pagination from "../../../components/common/Pagination";
 import Toast from "../../../components/common/Toast";
 import { userApi } from "../../../services/api";
 import Input from "../../../components/common/Input";
-import Textarea from "../../../components/common/Textarea";
+import Textarea from "../../../components/common/TextArea";
 import Modal from "../../../components/common/Modal";
 
 const AdminEmployees = () => {

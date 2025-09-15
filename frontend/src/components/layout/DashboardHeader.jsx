@@ -48,7 +48,7 @@ const DashboardHeader = () => {
               alt="avatar"
               className="h-8 w-8 rounded-full object-cover border-1 border-black"
             />
-            <span className="text-gray-700 font-medium hidden md:block">{user?.fullName || user?.username}</span>
+            <span className="text-gray-700 font-medium hidden md:block">{user?.full_name || user?.username}</span>
             <ChevronDownIcon className="h-5 w-5 text-gray-400" />
           </Menu.Button>
 

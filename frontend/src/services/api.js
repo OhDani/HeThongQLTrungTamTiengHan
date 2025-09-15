@@ -20,7 +20,8 @@ const createApi = (resource, idField = 'id') => ({
   },
   update: async (id, data) => {
     const res = await fetch(`${API_URL}/${resource}/${id}`, {
-      method: "PUT",
+      // Đổi từ "PUT" sang "PATCH" để cập nhật từng phần
+      method: "PATCH", 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
