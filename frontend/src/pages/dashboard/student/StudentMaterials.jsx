@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/common/Card";
 import { HiOutlineViewList } from "react-icons/hi";
-import { getStudentAssignments, getStudentClasses } from "../../../services/studentService";
+import {
+  getStudentAssignments,
+  getStudentClasses,
+} from "../../../services/studentService";
 
 // Icon cho từ vựng và tài liệu
 import vocabIcon from "../../../assets/avatar.jpg";
 import docIcon from "../../../assets/avatar.jpg";
 
-const StudentMaterials = ({ studentId = 6 }) => { 
+const StudentMaterials = ({ studentId = 6 }) => {
   const navigate = useNavigate();
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,8 +48,12 @@ const StudentMaterials = ({ studentId = 6 }) => {
   );
 
   // Lọc hiển thị dựa trên toggle
-  const displayedVocab = showAllVocab ? vocabularyAssignments : vocabularyAssignments.slice(0, 4);
-  const displayedRef = showAllRef ? referenceMaterials : referenceMaterials.slice(0, 2);
+  const displayedVocab = showAllVocab
+    ? vocabularyAssignments
+    : vocabularyAssignments.slice(0, 4);
+  const displayedRef = showAllRef
+    ? referenceMaterials
+    : referenceMaterials.slice(0, 2);
 
   return (
     <div className="p-6 bg-blue-50 rounded-lg shadow-md">
@@ -77,13 +84,23 @@ const StudentMaterials = ({ studentId = 6 }) => {
         {displayedVocab.map((a) => (
           <Card
             key={a.id}
-            onClick={() => navigate(`/dashboard/student/materials/flashcards/${a.material_id}`)}
+            onClick={() =>
+              navigate(
+                `/dashboard/student/materials/flashcards/${a.material_id}`
+              )
+            }
             className="flex flex-col items-center p-4 text-center border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 bg-white cursor-pointer"
           >
             <div className="w-full aspect-square mb-2 overflow-hidden rounded-md">
-              <img src={vocabIcon} alt={a.title} className="w-full h-full object-cover" />
+              <img
+                src={vocabIcon}
+                alt={a.title}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div className="font-semibold text-gray-800 mb-1 bg-blue-200 px-4 py-2 rounded-md">{a.title}</div>
+            <div className="font-semibold text-gray-800 mb-1 bg-blue-200 px-4 py-2 rounded-md">
+              {a.title}
+            </div>
             {a.word_count && (
               <div className="flex items-center justify-end w-full text-gray-600 text-xs mt-2 gap-1">
                 <HiOutlineViewList className="w-4 h-4" />
@@ -112,10 +129,20 @@ const StudentMaterials = ({ studentId = 6 }) => {
             <div>
               <div className="font-semibold">{a.title}</div>
               <div className="text-gray-500 text-sm">{a.description}</div>
-              {a.url && (
-                <a href={a.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm underline">
+
+              {a.url ? (
+                <a
+                  href={a.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 text-sm underline"
+                >
                   Xem tài liệu
                 </a>
+              ) : (
+                <span className="text-gray-400 text-sm italic">
+                  Chưa có tài liệu
+                </span>
               )}
             </div>
           </Card>

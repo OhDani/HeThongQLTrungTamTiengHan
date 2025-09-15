@@ -40,7 +40,7 @@ const AllVocabPage = ({ studentId = 6 }) => {
   if (!flashcards.length) return <div>Chưa có flashcards cho bài này.</div>;
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-blue-50 rounded-lg shadow-md">
       <Button
         onClick={() => navigate(-1)}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
