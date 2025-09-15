@@ -77,8 +77,8 @@ const StudentMaterials = ({ studentId = 6 }) => {
         {displayedVocab.map((a) => (
           <Card
             key={a.id}
-            onClick={() => navigate(`/dashboard/student/flashcards/${a.id}`)}
-            className="flex flex-col items-center p-3 text-center border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 bg-white cursor-pointer"
+            onClick={() => navigate(`/dashboard/student/materials/flashcards/${a.material_id}`)}
+            className="flex flex-col items-center p-4 text-center border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 bg-white cursor-pointer"
           >
             <div className="w-full aspect-square mb-2 overflow-hidden rounded-md">
               <img src={vocabIcon} alt={a.title} className="w-full h-full object-cover" />

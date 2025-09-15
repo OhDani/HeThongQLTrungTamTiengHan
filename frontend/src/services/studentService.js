@@ -59,20 +59,20 @@ export const getStudentAssignments = async (studentId) => {
 
   return allAssignments
     .filter((a) => Number(a.user_id) === Number(studentId))
-    .map((a) => ({
-      ...a,
-      word_count:
-        a.category?.toLowerCase() === "từ vựng"
-          ? a.description?.split(/\s+/).length || 0
-          : null,
-      // Gắn flashcards cho bài từ vựng qua material_id
-      flashcards:
+    .map((a) => {
+      const flashcards =
         a.category?.toLowerCase() === "từ vựng" && a.material_id
           ? allFlashcards.filter(
               (f) => Number(f.material_id) === Number(a.material_id)
             )
-          : [],
-    }));
+          : [];
+
+      return {
+        ...a,
+        word_count: flashcards.length, 
+        flashcards,
+      };
+    });
 };
 
 /** ===============================
