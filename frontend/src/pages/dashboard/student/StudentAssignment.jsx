@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {
-  FiFileText,
-  FiCalendar,
-  FiLink,
-  FiCheckCircle,
-} from "react-icons/fi";
+import React, { useEffect, useState, useCallback } from "react";
+import { FiFileText, FiCalendar, FiLink, FiCheckCircle } from "react-icons/fi";
 import { getStudentAssignmentsWithStatus } from "../../../services/studentService";
-import { useAuth } from "../../../contexts/AuthContext"; 
+import { useAuth } from "../../../contexts/AuthContext";
 import AssignmentModal from "./AssignmentModal";
-
-const STATUS = {
-  GRADED: "Đã chấm điểm",
-  SUBMITTED: "Đã nộp",
-  NOT_SUBMITTED: "Chưa nộp",
-  LATE_SUBMISSION: "Nộp trễ",
-  LATE: "Quá hạn",
-};
+import { STATUS } from "../../../services/studentService";
 
 const statColors = {
   total: "bg-blue-50 text-blue-700 border-blue-200",
@@ -35,71 +23,118 @@ const badgeClasses = {
 };
 
 const StudentAssignment = () => {
-  const { user, isAuthenticated } = useAuth(); 
+  const { user, isAuthenticated } = useAuth();
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selected, setSelected] = useState(null); // bài tập chọn để mở modal
+  const [selected, setSelected] = useState(null);
+  const [toast, setToast] = useState({ show: false, message: "", type: "" });
 
   const studentId = user?.user_id;
 
-  useEffect(() => {
+  const showToast = (message, type = "info") => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000);
+  };
+
+  const fetchAssignments = useCallback(async () => {
     if (!isAuthenticated || !studentId) {
       setError("Không tìm thấy thông tin học viên. Vui lòng đăng nhập lại.");
       setLoading(false);
       return;
     }
-
-    let mounted = true;
-    const load = async () => {
+    try {
       setLoading(true);
+      const data = await getStudentAssignmentsWithStatus(studentId);
+      setAssignments(Array.isArray(data) ? data : []);
       setError("");
-      try {
-        const data = await getStudentAssignmentsWithStatus(studentId);
-        if (mounted) setAssignments(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error(err);
-        if (mounted) setError("Không thể tải danh sách bài tập.");
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
-    load();
-    return () => {
-      mounted = false;
-    };
+    } catch (err) {
+      console.error(err);
+      setError("Không thể tải danh sách bài tập.");
+      showToast("Không thể tải danh sách bài tập. Vui lòng thử lại!", "error");
+    } finally {
+      setLoading(false);
+    }
   }, [studentId, isAuthenticated]);
 
-  
-/** helper */
-const fmtDate = (v) => (v ? new Date(v).toLocaleDateString("vi-VN") : "Không có");
-const fmtDateTime = (v) => (v ? new Date(v).toLocaleString("vi-VN") : "Không có");
+  useEffect(() => {
+    fetchAssignments();
+  }, [fetchAssignments]);
 
-const StatBox = ({ label, value, style }) => (
-  <div className={`flex-1 min-w-[120px] border ${style} rounded-lg p-4`}>
-    <div className="text-sm">{label}</div>
-    <div className="text-2xl font-bold mt-2">{value}</div>
-  </div>
-); 
+  const handleAssignmentAction = (updatedSubmission) => {
+    setAssignments((prev) =>
+      prev.map((a) => {
+        if (a.material_id === updatedSubmission.material_id) {
+          const newStatus = updatedSubmission.grade
+            ? STATUS.GRADED
+            : updatedSubmission.file_url
+            ? STATUS.SUBMITTED
+            : STATUS.NOT_SUBMITTED;
+          return {
+            ...a,
+            submission: updatedSubmission.file_url ? updatedSubmission : null,
+            grade: updatedSubmission.grade
+              ? {
+                  assignment_score: updatedSubmission.grade,
+                  feedback: updatedSubmission.feedback,
+                }
+              : null,
+            status: newStatus,
+          };
+        }
+        return a;
+      })
+    );
+
+    showToast(
+      updatedSubmission.file_url
+        ? updatedSubmission.submission_id
+          ? "Cập nhật bài nộp thành công!"
+          : "Nộp bài tập thành công!"
+        : "Xóa bài nộp thành công!",
+      "success"
+    );
+  };
+
+  const fmtDate = (v) => (v ? new Date(v).toLocaleDateString("vi-VN") : "Không có");
+  const fmtDateTime = (v) => (v ? new Date(v).toLocaleString("vi-VN") : "Không có");
+
+  const StatBox = ({ label, value, style }) => (
+    <div className={`flex-1 min-w-[120px] border ${style} rounded-lg p-4`}>
+      <div className="text-sm">{label}</div>
+      <div className="text-2xl font-bold mt-2">{value}</div>
+    </div>
+  );
 
   if (loading) return <div className="p-6">Đang tải bài tập...</div>;
   if (error) return <div className="p-6 text-red-600">{error}</div>;
   if (!assignments.length) return <div className="p-6">Chưa có bài tập nào.</div>;
-  
 
-  // === Thống kê ===
   const total = assignments.length;
   const countNotSubmitted = assignments.filter((a) => a.status === STATUS.NOT_SUBMITTED).length;
   const countSubmitted = assignments.filter((a) => a.status === STATUS.SUBMITTED).length;
-  const countGraded = assignments.filter((a) => a.grade).length;
+  const countGraded = assignments.filter((a) => a.status === STATUS.GRADED).length;
   const countLateSubmission = assignments.filter((a) => a.status === STATUS.LATE_SUBMISSION).length;
   const countLate = assignments.filter((a) => a.status === STATUS.LATE).length;
 
   return (
-    <div className="max-w-6xl bg-blue-50 mx-auto p-6 rounded-xl shadow-md">
+    <div className="max-w-6xl bg-blue-50 mx-auto p-6 rounded-xl shadow-md relative">
+      {toast.show && (
+        <div
+          className={`fixed top-4 right-4 px-4 py-2 rounded-md shadow-lg text-white ${
+            toast.type === "success"
+              ? "bg-green-500"
+              : toast.type === "error"
+              ? "bg-red-500"
+              : "bg-blue-500"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
+
       <h2 className="text-xl font-bold mb-4">BÀI TẬP CỦA TÔI</h2>
 
-      {/* Stats */}
       <div className="flex gap-4 mb-6 flex-wrap">
         <StatBox label="Tổng số" value={total} style={statColors.total} />
         <StatBox label="Chưa nộp" value={countNotSubmitted} style={statColors[STATUS.NOT_SUBMITTED]} />
@@ -109,7 +144,6 @@ const StatBox = ({ label, value, style }) => (
         <StatBox label="Quá hạn" value={countLate} style={statColors[STATUS.LATE]} />
       </div>
 
-      {/* List assignments */}
       <div className="space-y-6">
         {assignments.map((a) => {
           const key = a.id ?? a.material_id ?? a.title;
@@ -118,7 +152,6 @@ const StatBox = ({ label, value, style }) => (
 
           return (
             <div key={key} className="border rounded-lg p-6 bg-white shadow-sm">
-              {/* Title + badge */}
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <h3 className="text-lg font-semibold">{a.title ?? "Không có tiêu đề"}</h3>
@@ -132,16 +165,16 @@ const StatBox = ({ label, value, style }) => (
                   </span>
                 </div>
                 <div className="mt-4">
-                  {status === STATUS.NOT_SUBMITTED || status === STATUS.LATE ? (
+                  {(status === STATUS.NOT_SUBMITTED || status === STATUS.LATE) ? (
                     <button
-                      className="px-4 py-2 bg-blue-500 text-white rounded"
+                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                       onClick={() => setSelected({ ...a, mode: "submit" })}
                     >
                       Nộp bài tập
                     </button>
                   ) : (
                     <button
-                      className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded"
+                      className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded transition-colors"
                       onClick={() => setSelected({ ...a, mode: "view" })}
                     >
                       Xem bài đã nộp
@@ -150,13 +183,10 @@ const StatBox = ({ label, value, style }) => (
                 </div>
               </div>
 
-              {/* info row */}
               <div className="mt-4 flex items-center gap-6 text-gray-600">
                 <div className="flex items-center gap-2">
                   <FiFileText className="w-5 h-5" />
-                  <span className="text-sm">
-                    {a.course_name ?? a.class_name ?? "Không rõ lớp"}
-                  </span>
+                  <span className="text-sm">{a.course_name ?? a.class_name ?? "Không rõ lớp"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <FiCalendar className="w-5 h-5" />
@@ -184,22 +214,18 @@ const StatBox = ({ label, value, style }) => (
                     <div>
                       <div className="text-sm text-green-700">Kết quả chấm</div>
                       <div className="text-2xl font-bold text-green-700 mt-2">
-                        {Number(a.grade.assignment_score ?? 0)}/100 điểm
+                        {Number(a.grade?.assignment_score ?? 0)}/100 điểm
                       </div>
                     </div>
                     <div className="text-right text-sm text-gray-600">
                       <div className="text-xs text-gray-500">Nộp lúc</div>
-                      <div className="font-medium">
-                        {fmtDateTime(a.submission?.submitted_at)}
-                      </div>
+                      <div className="font-medium">{fmtDateTime(a.submission?.submitted_at)}</div>
                     </div>
                   </div>
                   <hr className="my-3 border-green-200" />
                   <div className="text-green-800">
                     <div className="font-medium">Nhận xét:</div>
-                    <div className="text-sm">
-                      {a.grade.feedback ?? "Không có nhận xét."}
-                    </div>
+                    <div className="text-sm">{a.grade?.feedback ?? "Không có nhận xét."}</div>
                   </div>
                 </div>
               )}
@@ -208,8 +234,14 @@ const StatBox = ({ label, value, style }) => (
         })}
       </div>
 
-      {/* modal render */}
-      <AssignmentModal assignment={selected} onClose={() => setSelected(null)}/>
+      {selected && (
+        <AssignmentModal
+          assignment={selected}
+          user={user} 
+          onClose={() => setSelected(null)}
+          onAction={handleAssignmentAction}
+        />
+      )}
     </div>
   );
 };

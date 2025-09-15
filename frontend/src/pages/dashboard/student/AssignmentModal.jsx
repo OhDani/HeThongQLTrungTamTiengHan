@@ -20,79 +20,86 @@ const fmtVNDate = (d) => {
   );
 };
 
-const AssignmentModal = ({ assignment, onClose, onAction }) => {
+const AssignmentModal = ({ assignment, user, onClose, onAction }) => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // Hiển thị file đã nộp (cập nhật sau sửa/nộp nếu BE trả về file_url mới)
+  // Lưu file name thay vì upload thật
   const [fileUrl, setFileUrl] = useState(assignment?.submission?.file_url ?? "");
 
   if (!assignment) return null;
 
   const { material_id, title, mode, submission, created_at, due_date, status } = assignment;
 
-  // Lấy file từ event
+  // Lấy file từ input
   const handleFileChange = (e) => {
-    setFile(e.target.files && e.target.files[0] ? e.target.files[0] : null);
-    setError(""); // reset lỗi khi upload lại
+    const f = e.target.files && e.target.files[0];
+    if (f) setFile(f);
+    setError("");
   };
 
   // Nộp bài mới
   const handleSubmit = async () => {
-    if (!file) {
-      setError("Bạn chưa chọn file.");
-      return;
-    }
+    if (!file) { setError("Bạn chưa chọn file."); return; }
     setLoading(true);
-    setError("");
     try {
-      // Nếu BE trả về file_url mới thì cập nhật, không thì dùng như cũ
-      const res = await submitAssignment(material_id, file);
-      if (res?.file_url) setFileUrl(res.file_url);
-      onAction && onAction();
-      setFile(null); // reset sau upload
-      onClose();
-    } catch (err) {
-      setError("Không thể nộp bài. Vui lòng thử lại.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Sửa bài nộp (upload lại file khác)
-  const handleUpdate = async () => {
-    if (!file) {
-      setError("Bạn chưa chọn file mới.");
-      return;
-    }
-    setLoading(true);
-    setError("");
-    try {
-      const res = await updateAssignmentSubmission(material_id, file);
-      if (res?.file_url) setFileUrl(res.file_url);
-      onAction && onAction();
+      const fakeFile = `uploads/${file.name}`;
+      const result = await submitAssignment(assignment.material_id, user.user_id, fakeFile);
+      
+      // Cập nhật submission trong assignment để lần sửa tiếp theo có submission_id
+      assignment.submission = result;
+      setFileUrl(result.file_url);
+      onAction && onAction(result);
       setFile(null);
       onClose();
     } catch (err) {
-      setError("Không thể sửa bài.");
+      console.error(err);
+      setError(err.message || "Không thể nộp bài.");
     } finally {
       setLoading(false);
     }
   };
-
-  // Xóa bài nộp
+  
+  const handleUpdate = async () => {
+    if (!file) { setError("Bạn chưa chọn file mới."); return; }
+    if (!assignment.submission?.id) return handleSubmit(); // dùng id thay cho submission_id
+    setLoading(true);
+    try {
+      const fakeFile = `uploads/${file.name}`;
+      const result = await updateAssignmentSubmission(
+        assignment.submission.id,   // dùng id
+        fakeFile
+      );
+  
+      assignment.submission = result;
+      setFileUrl(result.file_url);
+      onAction && onAction(result);
+      setFile(null);
+      onClose();
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Không thể cập nhật bài nộp.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   const handleDelete = async () => {
     if (!window.confirm("Bạn muốn xóa bài nộp này?")) return;
     setLoading(true);
-    setError("");
     try {
-      await deleteAssignmentSubmission(material_id);
+      if (assignment.submission?.id) {
+        await deleteAssignmentSubmission(assignment.submission.id); // dùng id
+      }
+  
+      assignment.submission = null;
       setFileUrl("");
-      onAction && onAction();
+      onAction && onAction({ material_id: assignment.material_id, file_url: "" });
       setFile(null);
       onClose();
     } catch (err) {
-      setError("Không thể xóa bài.");
+      console.error(err);
+      setError(err.message || "Không thể xóa bài nộp.");
     } finally {
       setLoading(false);
     }
@@ -118,69 +125,29 @@ const AssignmentModal = ({ assignment, onClose, onAction }) => {
           </div>
         </div>
         {error && <div className="text-red-600">{error}</div>}
-        
+
         {(mode === "submit" || status === "Chưa nộp") ? (
-          // THÊM mới
           <div className="space-y-3 pt-4">
             <p className="text-gray-600 text-xs">Chọn file để nộp bài tập:</p>
-            <Input
-              type="file"
-              className="block w-full border border-gray-300 rounded px-3 py-2 text-sm"
-              onChange={handleFileChange}
-              disabled={loading}
-              // KHÔNG truyền value nếu là type="file"! (mặc định Input không nhận value ở type=file)
-            />
+            <Input type="file" className="block w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                   onChange={handleFileChange} disabled={loading} />
             <div className="flex justify-end">
-              <Button
-                onClick={handleSubmit}
-                className={`px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded ${loading ? "opacity-50" : ""}`}
-                disabled={loading || !file}
-              >
+              <Button onClick={handleSubmit} className={`px-4 py-2 bg-blue-600 text-white rounded ${loading ? "opacity-50" : ""}`} disabled={loading || !file}>
                 {loading ? "Đang gửi..." : "Nộp bài tập"}
               </Button>
             </div>
-            {fileUrl && (
-              <p className="text-green-600 text-xs mt-2">
-                Đã nộp: <a href={fileUrl} target="_blank" rel="noreferrer">{fileUrl.split("/").pop()}</a>
-              </p>
-            )}
+            {fileUrl && <p className="text-green-600 text-xs mt-2">Đã nộp: <span>{fileUrl.split("/").pop()}</span></p>}
           </div>
         ) : (
-          // SỬA bài nộp
           <div className="space-y-2 pt-3">
-            {(fileUrl || submission?.file_url) && (
-              <p>
-                <strong>File bài nộp:</strong>{" "}
-                <a
-                  href={fileUrl || submission.file_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-600 underline"
-                >
-                  {(fileUrl || submission.file_url).split("/").pop()}
-                </a>
-              </p>
-            )}
-            <Input
-              type="file"
-              className="block w-full border border-gray-300 rounded px-3 py-2 text-sm"
-              onChange={handleFileChange}
-              disabled={loading}
-              // KHÔNG truyền value!
-            />
+            {fileUrl && <p><strong>File bài nộp:</strong> <span className="text-blue-600 underline">{fileUrl.split("/").pop()}</span></p>}
+            <Input type="file" className="block w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                   onChange={handleFileChange} disabled={loading} />
             <div className="flex gap-3 justify-end mt-4">
-              <Button
-                onClick={handleUpdate}
-                className={`px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded ${loading ? "opacity-50" : ""}`}
-                disabled={loading || !file}
-              >
+              <Button onClick={handleUpdate} className={`px-4 py-2 bg-yellow-500 text-white rounded ${loading ? "opacity-50" : ""}`} disabled={loading || !file}>
                 {loading ? "Đang gửi..." : "Sửa bài nộp"}
               </Button>
-              <Button
-                onClick={handleDelete}
-                className={`px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded ${loading ? "opacity-50" : ""}`}
-                disabled={loading}
-              >
+              <Button onClick={handleDelete} className={`px-4 py-2 bg-red-500 text-white rounded ${loading ? "opacity-50" : ""}`} disabled={loading}>
                 {loading ? "Đang xóa..." : "Xóa bài nộp"}
               </Button>
             </div>

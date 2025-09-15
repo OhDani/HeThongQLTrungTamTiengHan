@@ -352,32 +352,55 @@ export const getStudentAssignmentsWithStatus = async (studentId) => {
 };
 
 //AssignmentModal.jsx
-export async function submitAssignment(assignmentId, file) {
-  const formData = new FormData();
-  formData.append('file', file);
-  return fetch(`${API_URL}/api/assignments/${assignmentId}/submit`, { 
-    method: 'POST',
-    body: formData,
-    credentials: 'include'
-  }).then(res => res.json());
-}
+const API_URL = "http://localhost:3001";
 
-export async function updateAssignmentSubmission(assignmentId, file) {
-  const formData = new FormData();
-  formData.append("file", file);
-  return fetch(`${API_URL}/api/assignments/${assignmentId}/edit-submission`, {
-    method: "PATCH",  
-    body: formData,
-    credentials: "include",
-  }).then((res) => {
-    if (!res.ok) throw new Error("Update failed");
-    return res.json();
+export async function submitAssignment(assignmentId, userId, fileUrl) {
+  const newSubmission = {
+    material_id: assignmentId,
+    user_id: userId,
+    file_url: fileUrl,
+    submitted_at: new Date().toISOString(),
+    grade: null,
+    feedback: null,
+    corrected_file_url: null,
+    status: "Đã nộp"
+  };
+  const res = await fetch(`${API_URL}/submissions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newSubmission)
   });
+  if (!res.ok) throw new Error(`Lỗi khi nộp bài: ${res.statusText}`);
+  return res.json();
 }
 
-export async function deleteAssignmentSubmission(assignmentId) {
-  return fetch(`${API_URL}/api/assignments/${assignmentId}/delete-submission`, { 
-    method: 'DELETE',
-    credentials: 'include'
-  }).then(res => res.json());
+export async function updateAssignmentSubmission(submissionId, fileUrl) {
+  if (!submissionId) throw new Error("submissionId không hợp lệ");
+  const res = await fetch(`${API_URL}/submissions/${submissionId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      file_url: fileUrl,
+      submitted_at: new Date().toISOString(),
+    }),
+  });
+  if (!res.ok) throw new Error(`Không tìm thấy submission ${submissionId}`);
+  return res.json();
 }
+
+export async function deleteAssignmentSubmission(submissionId) {
+  if (!submissionId) return;
+  const res = await fetch(`${API_URL}/submissions/${submissionId}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) throw new Error(`Không tìm thấy submission ${submissionId}`);
+  return true;
+}
+
+export const STATUS = {
+  NOT_SUBMITTED: "Chưa nộp",
+  SUBMITTED: "Đã nộp",
+  GRADED: "Đã chấm",
+  LATE_SUBMISSION: "Nộp trễ",
+  LATE: "Quá hạn",
+};
