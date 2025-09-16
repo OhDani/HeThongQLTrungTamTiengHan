@@ -5,24 +5,25 @@ import Select from "../../../components/common/Select";
 import Button from "../../../components/common/Button";
 import Pagination from "../../../components/common/Pagination";
 import Toast from "../../../components/common/Toast";
-import { userApi } from "../../../services/api";
+import { userApi, classApi, enrollmentApi } from "../../../services/api"; // Giả sử có các API này
 import Input from "../../../components/common/Input";
-import Textarea from "../../../components/common/TextArea";
+import Textarea from "../../../components/common/TextArea"; // Sửa lại từ TextArea thành Textarea
 import Modal from "../../../components/common/Modal";
 
-const AdminEmployees = () => {
-  const [users, setUsers] = useState([]);
-  const [roleFilter, setRoleFilter] = useState("all");
+const ManagerStudent = () => {
+  const [students, setStudents] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [enrollments, setEnrollments] = useState([]);
+  const [classFilter, setClassFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [toasts, setToasts] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [editingUser, setEditingUser] = useState(null);
+  const [editingStudent, setEditingStudent] = useState(null);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
     phone: "",
     address: "",
-    role: "Giảng viên",
     note: "",
     username: "",
     password: "",
@@ -39,47 +40,58 @@ const AdminEmployees = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await userApi.getAll();
-        setUsers(res.filter((u) => u.role !== "Học viên"));
+        const [userRes, classRes, enrollmentRes] = await Promise.all([
+          userApi.getAll(),
+          classApi.getAll(),
+          enrollmentApi.getAll(),
+        ]);
+        setStudents(userRes.filter((u) => u.role === "Học viên"));
+        setClasses(classRes);
+        setEnrollments(enrollmentRes);
       } catch (error) {
-        addToast("Lỗi tải danh sách!", "error");
+        addToast("Lỗi tải dữ liệu!", "error");
       }
     })();
   }, []);
 
-  const filteredUsers = useMemo(
-    () => (roleFilter === "all" ? users : users.filter((u) => u.role === roleFilter)),
-    [roleFilter, users]
+  const filteredStudents = useMemo(() => {
+    if (classFilter === "all") return students;
+    const enrolledUserIds = enrollments
+      .filter((e) => e.class_id === parseInt(classFilter))
+      .map((e) => e.user_id);
+    return students.filter((s) => enrolledUserIds.includes(s.user_id));
+  }, [classFilter, students, enrollments]);
+
+  const paginatedStudents = useMemo(
+    () => filteredStudents.slice((currentPage - 1) * pageSize, currentPage * pageSize),
+    [filteredStudents, currentPage]
   );
 
-  const paginatedUsers = useMemo(
-    () => filteredUsers.slice((currentPage - 1) * pageSize, currentPage * pageSize),
-    [filteredUsers, currentPage]
-  );
+  const totalPages = Math.ceil(filteredStudents.length / pageSize);
 
-  const totalPages = Math.ceil(filteredUsers.length / pageSize);
-
-  const getUserId = (user) => user.id || user.user_id;
+  const getUserId = (student) => student.id || student.user_id;
 
   const handleAdd = () => {
-    setEditingUser(null);
-    setFormData({ full_name: "", email: "", phone: "", address: "", role: "Giảng viên", note: "", username: "", password: "" });
+    setEditingStudent(null);
+    setFormData({ full_name: "", email: "", phone: "", address: "", note: "", username: "", password: "" });
     setShowForm(true);
   };
 
   const handleEdit = (row) => {
-    setEditingUser(row);
-    setFormData({ ...row, password: "" });
+    setEditingStudent(row);
+    // Giữ nguyên password cũ nếu không thay đổi
+    const originalPassword = row.password || ""; // Lấy password từ dữ liệu gốc
+    setFormData({ ...row, password: originalPassword });
     setShowForm(true);
   };
 
-  const handleDelete = async (user) => {
-    const id = getUserId(user);
+  const handleDelete = async (student) => {
+    const id = getUserId(student);
     if (!id) return addToast("ID không hợp lệ!", "error");
-    if (window.confirm("Xóa nhân viên này?")) {
+    if (window.confirm("Xóa học viên này?")) {
       try {
         await userApi.delete(id);
-        setUsers((prev) => prev.filter((u) => getUserId(u) !== id));
+        setStudents((prev) => prev.filter((u) => getUserId(u) !== id));
         addToast("Xóa thành công!", "success");
       } catch (error) {
         addToast("Lỗi khi xóa!", "error");
@@ -95,32 +107,34 @@ const AdminEmployees = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const requiredFields = editingUser ? ["full_name", "email"] : ["full_name", "email", "username", "password"];
+    const requiredFields = editingStudent ? ["full_name", "email"] : ["full_name", "email", "username", "password"];
     if (requiredFields.some((field) => !formData[field]?.trim())) return addToast("Điền đầy đủ các trường bắt buộc!", "error");
     if (formData.phone && !/^0[0-9]{9}$/.test(formData.phone.replace(/\s/g, ""))) return addToast("Số điện thoại không hợp lệ!", "error");
 
     try {
-      const data = { ...formData, phone: formData.phone.replace(/\s/g, "") };
-      let updatedUsers;
-      if (editingUser) {
-        const id = getUserId(editingUser);
+      const data = { ...formData, phone: formData.phone.replace(/\s/g, ""), role: "Học viên" };
+      let updatedStudents;
+      if (editingStudent) {
+        const id = getUserId(editingStudent);
         if (!id) {
           addToast("Không thể cập nhật do thiếu ID.", "error");
           return;
         }
         const { id: _, user_id: __, ...dataToUpdate } = data;
-        const updatedUser = await userApi.update(id, dataToUpdate);
-        updatedUsers = users.map((u) => (getUserId(u) === id ? { ...u, ...updatedUser } : u));
+        // Nếu password không được nhập (vẫn là giá trị cũ), giữ nguyên password từ dữ liệu gốc
+        const updatedData = formData.password.trim() === "" ? { ...dataToUpdate, password: editingStudent.password } : dataToUpdate;
+        const updatedStudent = await userApi.update(id, updatedData);
+        updatedStudents = students.map((u) => (getUserId(u) === id ? { ...u, ...updatedStudent } : u));
         addToast("Cập nhật thành công!", "success");
       } else {
-        const newUser = await userApi.create(data);
-        if (!newUser || (!newUser.id && !newUser.user_id)) {
+        const newStudent = await userApi.create(data);
+        if (!newStudent || (!newStudent.id && !newStudent.user_id)) {
           throw new Error("ID không hợp lệ!");
         }
-        updatedUsers = [...users, newUser];
+        updatedStudents = [...students, newStudent];
         addToast("Thêm thành công!", "success");
       }
-      setUsers(updatedUsers);
+      setStudents(updatedStudents);
       setShowForm(false);
     } catch (err) {
       addToast("Lỗi khi cập nhật/thêm!", "error");
@@ -128,10 +142,15 @@ const AdminEmployees = () => {
   };
 
   const columns = [
-    { key: "full_name", label: "Họ Tên" },
+    {
+      key: "stt",
+      label: "STT",
+      render: (_, index) => (currentPage - 1) * pageSize + index + 1,
+    },
+    { key: "full_name", label: "Tên" },
     { key: "email", label: "Email" },
     { key: "phone", label: "Số Điện Thoại" },
-    { key: "role", label: "Chức Vụ" },
+    // Loại bỏ cột "Trình Trạng" theo yêu cầu
     {
       key: "actions",
       label: "Hành Động",
@@ -144,38 +163,39 @@ const AdminEmployees = () => {
     },
   ];
 
-  const roleOptions = [
-    { value: "all", label: "Tất cả" },
-    { value: "Quản lý hệ thống", label: "Quản lý hệ thống" },
-    { value: "Quản lý học vụ", label: "Quản lý học vụ" },
-    { value: "Giảng viên", label: "Giảng viên" },
-  ];
+  const classOptions = useMemo(
+    () => [
+      { value: "all", label: "Tất cả" },
+      ...classes.map((c) => ({ value: c.class_id.toString(), label: c.class_name })),
+    ],
+    [classes]
+  );
 
   return (
     <div className="p-6 bg-blue-50 min-h-screen">
       {toasts.map((toast) => <Toast key={toast.id} message={toast.message} type={toast.type} onClose={() => setToasts((prev) => prev.filter((t) => t.id !== toast.id))} />)}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-semibold">Quản lý nhân viên</h1>
+        <h1 className="text-xl font-semibold">Quản lý học viên</h1>
         <Button variant="primary" onClick={handleAdd}>
-          <FaPlus className="inline-block mr-2" /> Thêm nhân viên
+          <FaPlus className="inline-block mr-2" /> Thêm học viên
         </Button>
       </div>
       <div className="w-64 mb-4">
-        <Select
-          id="roleFilter"
-          label="Lọc theo chức vụ:"
-          value={roleFilter}
-          onChange={(e) => { setRoleFilter(e.target.value); setCurrentPage(1); }}
-          options={roleOptions}
-        />
+      <Select
+        id="classFilter"
+        label="Lọc theo lớp học:"
+        value={classFilter}
+        onChange={(e) => { setClassFilter(e.target.value); setCurrentPage(1); }}
+        options={classOptions}
+      />
       </div>
-      {paginatedUsers.length ? <Table columns={columns} data={paginatedUsers} /> : <p className="text-gray-500">Không có dữ liệu.</p>}
+      {paginatedStudents.length ? <Table columns={columns} data={paginatedStudents} /> : <p className="text-gray-500">Không có dữ liệu.</p>}
       {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />}
 
       <Modal
         isOpen={showForm}
         onClose={() => setShowForm(false)}
-        title={editingUser ? "Sửa nhân viên" : "Thêm nhân viên"}
+        title={editingStudent ? "Sửa học viên" : "Thêm học viên"}
         className="w-[800px] max-h-[95vh] overflow-y-auto"
         backdropClassName="bg-gray-600/10 backdrop-blur-sm"
       >
@@ -217,21 +237,7 @@ const AdminEmployees = () => {
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
             />
-            <div className="mb-4">
-              <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">Chức vụ</label>
-              <select
-                id="role"
-                value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                className="w-full border px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                required
-              >
-                <option value="Quản lý hệ thống">Quản lý hệ thống</option>
-                <option value="Quản lý học vụ">Quản lý học vụ</option>
-                <option value="Giảng viên">Giảng viên</option>
-              </select>
-            </div>
-            {!editingUser && (
+            {!editingStudent && (
               <>
                 <Input
                   id="username"
@@ -267,7 +273,7 @@ const AdminEmployees = () => {
             </div>
             <div className="col-span-1 md:col-span-2 flex justify-end gap-2 mt-4">
               <Button type="button" variant="secondary" onClick={() => setShowForm(false)}>Hủy</Button>
-              <Button type="submit" variant="primary">{editingUser ? "Cập nhật" : "Thêm mới"}</Button>
+              <Button type="submit" variant="primary">{editingStudent ? "Cập nhật" : "Thêm mới"}</Button>
             </div>
           </form>
         </div>
@@ -276,4 +282,4 @@ const AdminEmployees = () => {
   );
 };
 
-export default AdminEmployees;
+export default ManagerStudent;
