@@ -1,54 +1,88 @@
-import React, { Fragment } from 'react';
-import { Menu, Transition } from '@headlessui/react';
-import { BellIcon, Cog6ToothIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import avatar from '../../assets/avatar.jpg';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  BellIcon,
+  Cog6ToothIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
+import avatar from "../../assets/avatar.jpg";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { getNotifications } from "../../services/notificationService";
+import NotificationSidebar from "./NotificationSidebar";
+import SettingsSidebar from "./Settings";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ searchTerm, setSearchTerm }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const [notifications, setNotifications] = useState([]);
+  const [showNoti, setShowNoti] = useState(false);
+  const [showSettings, setShowSettings] = useState(false); 
+
+  useEffect(() => {
+    const fetchNoti = async () => {
+      if (user) {
+        const data = await getNotifications(user);
+        setNotifications(data);
+      }
+    };
+    fetchNoti();
+  }, [user]);
+
   const dropdownItems = [
-    { label: 'Hồ sơ của bạn', action: () => navigate('/dashboard/profile') },
-    { label: 'Cài đặt', action: () => navigate('/dashboard/settings') },
-    { label: 'Đăng xuất', action: logout },
+    { label: "Hồ sơ của bạn", action: () => navigate("/dashboard/profile") },
+    { label: "Đăng xuất", action: logout },
   ];
 
   return (
     <header className="bg-white shadow-sm px-6 py-3 flex items-center justify-between">
       <div className="text-2xl font-semibold text-gray-800">Dashboard</div>
 
-      <div className="flex-1 px-25 my-1">
+      <div className="flex-1 px-5 my-1">
         <input
           type="text"
           placeholder="Tìm kiếm..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div className="flex items-center space-x-4">
-        {[BellIcon, Cog6ToothIcon].map((Icon, idx) => (
-          <button
-            key={idx}
-            className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <Icon className="h-6 w-6 text-gray-600" />
-          </button>
-        ))}
+        <button
+          className="relative p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onClick={() => setShowNoti(true)}
+        >
+          <BellIcon className="h-6 w-6 text-gray-600" />
+          {notifications.length > 0 && (
+            <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full px-1">
+              {notifications.length}
+            </span>
+          )}
+        </button>
+
+        <button
+          className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onClick={() => setShowSettings(true)}
+        >
+          <Cog6ToothIcon className="h-6 w-6 text-gray-600" />
+        </button>
 
         <Menu as="div" className="relative">
           <Menu.Button className="flex items-center space-x-2 rounded-full hover:bg-gray-100 p-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             <img
               src={user?.avatar || avatar}
               alt="avatar"
-              className="h-8 w-8 rounded-full object-cover border-1 border-black"
+              className="h-8 w-8 rounded-full object-cover border"
             />
-            <span className="text-gray-700 font-medium hidden md:block">{user?.full_name || user?.username}</span>
+            <span className="text-gray-700 font-medium hidden md:block">
+              {user?.full_name || user?.username}
+            </span>
             <ChevronDownIcon className="h-5 w-5 text-gray-400" />
           </Menu.Button>
 
@@ -68,8 +102,8 @@ const DashboardHeader = () => {
                     <button
                       onClick={item.action}
                       className={classNames(
-                        active ? 'bg-gray-100' : '',
-                        'w-full text-left px-4 py-2 text-sm text-gray-700'
+                        active ? "bg-gray-100" : "",
+                        "w-full text-left px-4 py-2 text-sm text-gray-700"
                       )}
                     >
                       {item.label}
@@ -81,6 +115,15 @@ const DashboardHeader = () => {
           </Transition>
         </Menu>
       </div>
+
+      {showNoti && (
+        <NotificationSidebar
+          notifications={notifications}
+          onClose={() => setShowNoti(false)}
+        />
+      )}
+
+      {showSettings && <SettingsSidebar onClose={() => setShowSettings(false)} />}
     </header>
   );
 };

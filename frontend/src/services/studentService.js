@@ -7,6 +7,7 @@ import {
   assignmentApi,
   flashcardApi,
   feedbackApi,
+  courseApi,
 } from "./api";
 
 /** ===============================
@@ -49,7 +50,6 @@ export const getStudentClasses = async (studentId) => {
     });
 };
 
-
 // Lấy tất cả assignments của học viên, kèm flashcards
 export const getStudentAssignments = async (studentId) => {
   const allAssignments = await assignmentApi.getAll();
@@ -59,18 +59,20 @@ export const getStudentAssignments = async (studentId) => {
 
   return allAssignments
     .filter((a) => Number(a.user_id) === Number(studentId))
-    .map((a) => ({
-      ...a,
-      word_count:
-        a.category?.toLowerCase() === "từ vựng"
-          ? a.description?.split(/\s+/).length || 0
-          : null,
-      // Gắn flashcards cho bài từ vựng
-      flashcards:
-        a.category?.toLowerCase() === "từ vựng"
-          ? allFlashcards.filter((f) => Number(f.material_id) === Number(a.id))
-          : [],
-    }));
+    .map((a) => {
+      const flashcards =
+        a.category?.toLowerCase() === "từ vựng" && a.material_id
+          ? allFlashcards.filter(
+              (f) => Number(f.material_id) === Number(a.material_id)
+            )
+          : [];
+
+      return {
+        ...a,
+        word_count: flashcards.length, 
+        flashcards,
+      };
+    });
 };
 
 /** ===============================
@@ -259,14 +261,146 @@ export const getStudentFeedbacks = async (studentId) => {
 };
 
 // Gửi feedback mới
-export const createFeedback = async ({ user_id, class_id, course_id, rating, comment }) => {
+export const createFeedback = async ({
+  user_id,
+  class_id,
+  course_id,
+  rating,
+  comment,
+}) => {
   const payload = {
     user_id,
     class_id,
-    course_id, 
+    course_id,
     rating,
     comment,
     created_at: new Date().toISOString(),
   };
   return feedbackApi.create(payload);
+};
+
+/** ===============================
+ * BÀI TẬP
+ * =============================== */
+
+// Lấy assignments kèm trạng thái + chấm điểm
+export const getStudentAssignmentsWithStatus = async (studentId) => {
+  const assignments = await assignmentApi.getAll();
+  const submissions = await submissionApi.getAll();
+  const classes = await classApi.getAll();
+  const courses = await courseApi.getAll();
+  const enrollments = await enrollmentApi.getAll();
+
+  // lấy danh sách class mà học viên này học
+  const myClassIds = enrollments
+    .filter((en) => Number(en.user_id) === Number(studentId))
+    .map((en) => Number(en.class_id));
+
+  return (
+    assignments
+      // chỉ lấy assignment thuộc những lớp mà học viên đó học
+      .filter((a) => myClassIds.includes(Number(a.class_id)))
+      .map((a) => {
+        // tìm submission của học viên này cho assignment này
+        const submission = submissions.find(
+          (s) =>
+            Number(s.user_id) === Number(studentId) &&
+            Number(s.material_id) === Number(a.material_id)
+        );
+
+        const grade =
+          submission?.grade !== undefined
+            ? {
+                assignment_score: submission.grade,
+                feedback: submission.feedback,
+                corrected_file_url: submission.corrected_file_url,
+              }
+            : null;
+
+        const dueDate = a.due_date ? new Date(a.due_date) : null;
+        const submittedAt = submission?.submitted_at
+          ? new Date(submission.submitted_at)
+          : null;
+
+        let status = "Chưa nộp";
+        if (submittedAt) {
+          status = "Đã nộp";
+          if (grade && grade.assignment_score !== null) status = "Đã chấm điểm";
+          // nếu có nộp nhưng sau hạn thì:
+          if (dueDate && submittedAt > dueDate) status = "Nộp trễ";
+        } else if (dueDate && new Date() > dueDate) {
+          status = "Quá hạn";
+        }
+
+        const classInfo = classes.find(
+          (c) => Number(c.class_id) === Number(a.class_id)
+        );
+        const courseInfo = courses.find(
+          (c) => Number(c.course_id) === Number(classInfo?.course_id)
+        );
+
+        return {
+          ...a,
+          submission,
+          grade,
+          status,
+          class_name: classInfo?.class_name ?? null,
+          course_name: courseInfo?.course_name ?? null,
+        };
+      })
+  );
+};
+
+//AssignmentModal.jsx
+const API_URL = "http://localhost:3001";
+
+export async function submitAssignment(assignmentId, userId, fileUrl) {
+  const newSubmission = {
+    material_id: assignmentId,
+    user_id: userId,
+    file_url: fileUrl,
+    submitted_at: new Date().toISOString(),
+    grade: null,
+    feedback: null,
+    corrected_file_url: null,
+    status: "Đã nộp"
+  };
+  const res = await fetch(`${API_URL}/submissions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newSubmission)
+  });
+  if (!res.ok) throw new Error(`Lỗi khi nộp bài: ${res.statusText}`);
+  return res.json();
+}
+
+export async function updateAssignmentSubmission(submissionId, fileUrl) {
+  if (!submissionId) throw new Error("submissionId không hợp lệ");
+  const res = await fetch(`${API_URL}/submissions/${submissionId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      file_url: fileUrl,
+      submitted_at: new Date().toISOString(),
+    }),
+  });
+  if (!res.ok) throw new Error(`Không tìm thấy submission ${submissionId}`);
+  return res.json();
+}
+
+export async function deleteAssignmentSubmission(submissionId) {
+  if (!submissionId) return;
+  const res = await fetch(`${API_URL}/submissions/${submissionId}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) throw new Error(`Không tìm thấy submission ${submissionId}`);
+  return true;
+}
+
+export const STATUS = {
+  NOT_SUBMITTED: "Chưa nộp",
+  SUBMITTED: "Đã nộp",
+  GRADED: "Đã chấm",
+  LATE_SUBMISSION: "Nộp trễ",
+  LATE: "Quá hạn",
 };
