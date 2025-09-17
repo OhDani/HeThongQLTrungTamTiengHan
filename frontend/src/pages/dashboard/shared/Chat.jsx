@@ -103,8 +103,7 @@ const Chat = () => {
         case "unread":
           return allMessages.some(
             (msg) =>
-              Number(msg.conversation_id) === Number(conv.conversation_id) &&
-              msg.status !== "Đã đọc"
+              Number(msg.conversation_id) === Number(conv.conversation_id)
           );
         case "group":
           return conv.type === "Group";
@@ -124,7 +123,6 @@ const Chat = () => {
       content: message,
       file_url: null,
       created_at: new Date().toISOString(),
-      status: "Đã gửi",
     };
 
     try {
@@ -249,7 +247,7 @@ const Chat = () => {
                           <p className="text-sm">{msg.content}</p>
                           <p className="text-[10px] opacity-70 mt-1">
                             {new Date(msg.created_at).toLocaleTimeString()} •{" "}
-                            {msg.status} • {sender?.full_name}
+                            {sender?.full_name}
                           </p>
                         </div>
                       </div>
