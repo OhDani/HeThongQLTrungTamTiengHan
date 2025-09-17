@@ -27,7 +27,10 @@ import StudentMaterials from "./pages/dashboard/student/StudentMaterials.jsx";
 import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
 import StudentFeedback from "./pages/dashboard/student/StudentFeedback.jsx";
 import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
-import { SearchProvider } from "./contexts/SearchContext";
+import StudentAssignment from "./pages/dashboard/student/StudentAssignment.jsx";
+
+import ManagerStudent from "./pages/dashboard/manager/ManagerStudent.jsx";
+
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -42,13 +45,14 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
-          <Route path="student/overview" element={<StudentOverview />} />
-          <Route path="student/schedule" element={<StudentSchedulePage />} />
-          <Route path="student/grades" element={<StudentGradesPage />} />
-          <Route path="student/materials" element={<StudentMaterials />} />
-          <Route path="student/flashcards/:materialId" element={<AllVocabPage />} />
-          <Route path="student/feedback" element={<StudentFeedback />} />
+      <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
+        <Route path="student/overview" element={<StudentOverview />} />
+        <Route path="student/schedule" element={<StudentSchedulePage />} />
+        <Route path="student/grades" element={<StudentGradesPage />} />
+        <Route path="student/materials" element={<StudentMaterials />} />
+        <Route path="student/materials/flashcards/:materialId" element={<AllVocabPage />} />
+        <Route path="student/assignments" element={<StudentAssignment />} />
+        <Route path="student/feedback" element={<StudentFeedback />} />
 
           <Route path="student/profile" element={<UserProfile />} />
           <Route path="admin/employees" element={<AdminEmployees />} />
@@ -68,6 +72,9 @@ export default function App() {
           <Route path="teacher/schedule" element={<TeacherSchedulePage />} />
           <Route path="teacher/feedback" element={<TeacherFeedback />} />
           <Route path="teacher/notification" element={<TeacherNotifications />} />
+
+          <Route path="manager/profile" element={<UserProfile />} />
+          <Route path="manager/students" element={<ManagerStudent />} />
           
         </Route>
 
