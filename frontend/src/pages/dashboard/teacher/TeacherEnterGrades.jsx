@@ -131,7 +131,7 @@ const TeacherEnterGrades = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-blue-50">
       <main className="flex-1 overflow-auto p-4">
         {alert && (
           <div className="fixed top-4 right-4 z-50">

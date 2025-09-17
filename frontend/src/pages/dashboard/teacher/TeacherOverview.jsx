@@ -5,6 +5,7 @@ import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import { BookOpen, Bell, CalendarDays, Users, UserCheck, UserCheck2 } from "lucide-react";
 import { userApi, classApi, courseApi, enrollmentApi, notificationApi } from '../../../services/api';
 import { useAuth } from '../../../contexts/AuthContext';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const TeacherOverview = () => {
     const { user } = useAuth();
@@ -41,7 +42,6 @@ const TeacherOverview = () => {
 
                 setEnrollments(enrollmentsResponse);
 
-                // Lọc các khóa học do giáo viên đang đăng nhập giảng dạy
                 const teacherCourses = classesResponse
                     .filter((cls) => cls.user_id === user.user_id)
                     .map((cls) => {
@@ -49,7 +49,6 @@ const TeacherOverview = () => {
                         return { ...course, ...cls };
                     });
 
-                // Lấy danh sách học viên từ lớp của giáo viên
                 const enrolledStudents = enrollmentsResponse
                     .filter((enroll) =>
                         teacherCourses.some((tc) => tc.class_id === enroll.class_id)
@@ -84,30 +83,23 @@ const TeacherOverview = () => {
 
     const currentTeacher = user || { full_name: "Giáo viên" };
 
-    // Số lớp đang dạy
     const activeClasses = courses.filter(
         (course) => course.status === "Đang mở"
     ).length;
 
-    // Lịch dạy hôm nay
-    const today = new Date().toLocaleDateString("vi-VN", {
-        timeZone: "Asia/Ho_Chi_Minh",
-    }).split('/')[0];
+    const today = new Date().toLocaleDateString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }).split('/')[0];
     const todaySchedule = courses
         .filter((course) => course.schedule.includes(today))
         .map((course) => `${course.class_name}: ${course.schedule}`);
 
-    // Số thông báo
     const newNotificationsCount = notifications.length;
 
-    // Lịch sắp tới
     const upcomingSchedule = courses
         .filter((course) => new Date(course.start_date) > new Date())
         .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
         .slice(0, 1)
         .map((course) => `${course.class_name}: ${course.start_date} - ${course.schedule}`);
 
-    // Thống kê học viên
     const totalStudents = students.length;
     const activeStudents = students.filter((student) =>
         enrollments.some(
@@ -120,24 +112,32 @@ const TeacherOverview = () => {
         )
     ).length;
 
+    // Dữ liệu biểu đồ: học viên theo lớp
+    const chartData = courses.map(course => {
+        const studentsInClass = enrollments.filter(
+            (enroll) => enroll.class_id === course.class_id
+        ).length;
+
+        return {
+            name: course.class_name,
+            students: studentsInClass
+        };
+    });
+
     return (
-        <div className="flex h-screen" style={{ backgroundColor: "#F7FAFC" }}>
+        <div className="flex h-screen bg-blue-50">
             <div className="flex-1 flex flex-col overflow-hidden">
                 <main className="flex-1 overflow-x-hidden overflow-y-auto p-4">
                     <div className="mb-6">
                         <h1 className="text-3xl font-bold mb-2">GIẢNG VIÊN</h1>
                         <h2 className="text-sm text-gray-600 mb-2">
-                            Hôm nay, ngày{" "}
-                            {new Date().toLocaleString("vi-VN", {
-                                timeZone: "Asia/Ho_Chi_Minh",
-                            })}
+                            Hôm nay, ngày {new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" })}
                         </h2>
                         <h3 className="text-sm italic">
                             Chào mừng {currentTeacher.full_name}, chúc bạn một ngày giảng dạy hiệu quả và đầy cảm hứng
                         </h3>
                     </div>
 
-                    {/* 3 Card ngang */}
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
                         <Card className="p-4 flex flex-col bg-white shadow rounded-lg">
                             <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
@@ -145,8 +145,7 @@ const TeacherOverview = () => {
                                 Chào mừng {currentTeacher.full_name}
                             </h3>
                             <p>
-                                Số lớp đang dạy:{" "}
-                                <span className="text-blue-600 font-bold">{activeClasses}</span>
+                                Số lớp đang dạy: <span className="text-blue-600 font-bold">{activeClasses}</span>
                             </p>
                             <p>
                                 Lịch dạy hôm nay:{" "}
@@ -163,8 +162,7 @@ const TeacherOverview = () => {
                                 <Bell size={20} className="text-red-500" /> Thông báo mới
                             </h3>
                             <p>
-                                Số lượng:{" "}
-                                <span className="text-red-500 font-bold">{newNotificationsCount}</span>
+                                Số lượng: <span className="text-red-500 font-bold">{newNotificationsCount}</span>
                             </p>
                         </Card>
 
@@ -182,11 +180,7 @@ const TeacherOverview = () => {
                         </Card>
                     </div>
 
-                    {/* Card lớn thống kê */}
-                    <Card
-                        className="mb-6 p-4 rounded-lg shadow"
-                        style={{ backgroundColor: "#E3EDF9" }}
-                    >
+                    <Card className="mb-6 p-4 rounded-lg shadow" style={{ backgroundColor: "#E3EDF9" }}>
                         <h2 className="text-xl font-semibold mb-4">| Thông tin chung</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
                             <Card className="p-3 text-center flex flex-col items-center bg-white shadow rounded-lg">
@@ -207,8 +201,17 @@ const TeacherOverview = () => {
                         </div>
 
                         <h3 className="text-xl font-semibold mb-4">| Thống kê</h3>
-                        <div className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
-                            <p>Biểu đồ học viên theo lớp (Tích hợp Chart.js / Recharts)</p>
+                        <div className="w-full h-64">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis allowDecimals={false} />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="students" fill="#487DEE" />
+                                </BarChart>
+                            </ResponsiveContainer>
                         </div>
                     </Card>
                 </main>

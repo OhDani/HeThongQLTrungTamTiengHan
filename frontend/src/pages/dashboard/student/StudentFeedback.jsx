@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import {
-  getStudentClasses,
-  createFeedback,
-} from "../../../services/studentService";
 import { FaStar } from "react-icons/fa";
 import Input from "../../../components/common/Input";
 import Select from "../../../components/common/Select";
 import TextArea from "../../../components/common/TextArea";
-import Alert from "../../../components/common/Alert";
+import { useAuth } from "../../../contexts/AuthContext";
+import { getStudentClasses, createFeedback } from "../../../services/studentService";
+import Toast from "../../../components/common/toast";
 
-const StudentFeedback = ({ studentId = 6 }) => {
-  const [classes, setClasses] = useState([]);
+const StudentFeedback = () => {
+  const { user } = useAuth();
+  const studentId = user?.user_id;
+
+  const [classOptions, setClassOptions] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -18,32 +19,46 @@ const StudentFeedback = ({ studentId = 6 }) => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
+  // Toast state
+  const [toast, setToast] = useState({ message: "", type: "info" });
+
+  // Lấy danh sách lớp học viên đã đăng ký
   useEffect(() => {
+    if (!studentId) {
+      setLoading(false);
+      return;
+    }
+
     const fetchClasses = async () => {
       try {
         const data = await getStudentClasses(studentId);
-        console.log("Fetched classes:", data); // Debug log
-        setClasses(
-          Array.isArray(data)
-            ? data.map((cls) => ({
-                value: cls.class_id || cls.id,
-                label: cls.class_name,
-              }))
-            : []
-        );
+        const myClasses = Array.isArray(data)
+          ? data.map((cls) => ({
+              value: cls.class_id,
+              label: `${cls.class_name} - ${cls.days} ${cls.time} (${cls.room}) - GV: ${cls.teacher_name}`,
+            }))
+          : [];
+
+        setClassOptions(myClasses);
       } catch (err) {
-        console.error("Error fetching classes:", err);
+        console.error("Lỗi khi lấy lớp:", err);
+        setToast({ message: "Không thể tải danh sách lớp!", type: "error" });
       } finally {
         setLoading(false);
       }
     };
+
     fetchClasses();
   }, [studentId]);
 
+  // Submit feedback
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedClass || rating === 0) {
-      Alert("Vui lòng chọn lớp và đánh giá trước khi gửi.");
+      setToast({
+        message: "Vui lòng chọn lớp và đánh giá trước khi gửi.",
+        type: "error",
+      });
       return;
     }
 
@@ -55,39 +70,51 @@ const StudentFeedback = ({ studentId = 6 }) => {
         rating,
         comment,
       });
-      Alert("Gửi phản hồi thành công!");
+
+      setToast({ message: "Gửi phản hồi thành công!", type: "success" });
       setSelectedClass("");
       setRating(0);
       setHoverRating(0);
       setComment("");
     } catch (err) {
-      console.error("Error creating feedback:", err);
-      alert("Gửi phản hồi thất bại!");
+      console.error("Lỗi khi gửi feedback:", err);
+      setToast({ message: "Gửi phản hồi thất bại!", type: "error" });
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (loading) return <div>Đang tải lớp học...</div>;
+  if (!studentId) {
+    return (
+      <div className="text-red-500">
+        Không xác định học viên. Vui lòng đăng nhập.
+      </div>
+    );
+  }
+
+  if (loading) return <div>Đang tải danh sách lớp...</div>;
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Gửi phản hồi về lớp học</h2>
-      {classes.length === 0 && (
-        <div className="mb-4 p-3 bg-yellow-100 text-yellow-700 rounded">
-          Học viên chưa đăng ký lớp học nào.
-        </div>
+      {/* Hiển thị Toast */}
+      {toast.message && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ message: "", type: "info" })}
+        />
       )}
+
+      <h2 className="text-xl font-bold mb-4">Gửi phản hồi về lớp học</h2>
+
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <Select
           label="Chọn lớp học"
           id="class"
           value={selectedClass}
           onChange={(e) => setSelectedClass(e.target.value)}
-          options={[
-            { value: "", label: "-- Chọn lớp --" },
-            ...classes // ← FIX: Sử dụng trực tiếp classes array đã được map
-          ]}
+          options={[{ value: "", label: "-- Chọn lớp --" }, ...classOptions]}
           required
         />
 
