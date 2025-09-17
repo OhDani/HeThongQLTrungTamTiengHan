@@ -8,6 +8,8 @@ import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FiList } from "react-icons/fi";
 import toast from "../../../components/common/toast";
+import book from "../../../assets/img/book.png";
+import tailieu from "../../../assets/img/tailieu.png";
 
 const TeacherAssignmentPage = () => {
   const [assignments, setAssignments] = useState([]);
@@ -59,19 +61,19 @@ const TeacherAssignmentPage = () => {
     setOpenModal(true);
   };
   const mapStatusToData = {
-  "Đã chấm": "Đã chấm",
-  "Chưa nộp": "Chưa nộp",
-  "Đã nộp": "Đã nộp",
-  "Nộp trễ": "Nộp trễ",
-};
-const getSubmissionStats = (subs) => {
-  return {
-    graded: subs.filter(s => s.status === mapStatusToData["Đã chấm"]).length,
-    notSubmitted: subs.filter(s => s.status === mapStatusToData["Chưa nộp"]).length,
-    submittedButNotGraded: subs.filter(s => s.status === mapStatusToData["Đã nộp"]).length,
-    late: subs.filter(s => s.status === mapStatusToData["Nộp trễ"]).length,
+    "Đã chấm": "Đã chấm",
+    "Chưa nộp": "Chưa nộp",
+    "Đã nộp": "Đã nộp",
+    "Nộp trễ": "Nộp trễ",
   };
-};
+  const getSubmissionStats = (subs) => {
+    return {
+      graded: subs.filter(s => s.status === mapStatusToData["Đã chấm"]).length,
+      notSubmitted: subs.filter(s => s.status === mapStatusToData["Chưa nộp"]).length,
+      submittedButNotGraded: subs.filter(s => s.status === mapStatusToData["Đã nộp"]).length,
+      late: subs.filter(s => s.status === mapStatusToData["Nộp trễ"]).length,
+    };
+  };
 
   const handleDelete = async (item) => {
     if (!window.confirm(`Bạn có chắc chắn muốn xóa "${item.title}" không?`)) return;
@@ -87,30 +89,30 @@ const getSubmissionStats = (subs) => {
   };
 
   const calculateStats = (item) => {
-  const enrolledStudents = enrollments
-    .filter(e => String(e.class_id) === String(item.class_id) && e.status === "Đang học")
-    .map(e => e.user_id);
+    const enrolledStudents = enrollments
+      .filter(e => String(e.class_id) === String(item.class_id) && e.status === "Đang học")
+      .map(e => e.user_id);
 
-  const subsForItem = submissions.filter(s => String(s.material_id) === String(item.material_id));
-  const submissionMap = Object.fromEntries(subsForItem.map(s => [s.user_id, s]));
+    const subsForItem = submissions.filter(s => String(s.material_id) === String(item.material_id));
+    const submissionMap = Object.fromEntries(subsForItem.map(s => [s.user_id, s]));
 
-  const stats = { graded: 0, notSubmitted: 0, submittedButNotGraded: 0, late: 0 };
+    const stats = { graded: 0, notSubmitted: 0, submittedButNotGraded: 0, late: 0 };
 
-  const mapStatusToUI = {
-    "Đã chấm": "graded",
-    "Chưa nộp": "notSubmitted",
-    "Đã nộp": "submittedButNotGraded",
-    "Nộp trễ": "late",
+    const mapStatusToUI = {
+      "Đã chấm": "graded",
+      "Chưa nộp": "notSubmitted",
+      "Đã nộp": "submittedButNotGraded",
+      "Nộp trễ": "late",
+    };
+
+    enrolledStudents.forEach(uid => {
+      const status = submissionMap[uid]?.status || "Chưa nộp";
+      const key = mapStatusToUI[status] || "notSubmitted";
+      stats[key]++;
+    });
+
+    return stats;
   };
-
-  enrolledStudents.forEach(uid => {
-    const status = submissionMap[uid]?.status || "Chưa nộp";
-    const key = mapStatusToUI[status] || "notSubmitted";
-    stats[key]++;
-  });
-
-  return stats;
-};
 
 
   return (
@@ -118,7 +120,7 @@ const getSubmissionStats = (subs) => {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">| Quản lý Bài tập & Tài liệu</h1>
         <div className="flex gap-2">
-          
+
           <Button onClick={() => setShowForm(!showForm)}>
             {showForm ? "Ẩn" : "+ Thêm bài tập"}
           </Button>
@@ -153,7 +155,7 @@ const getSubmissionStats = (subs) => {
 
                   <div className="flex justify-between mb-4 gap-4 flex-wrap">
                     <div
-                      className="bg-green-200 text-green-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
+                      className="bg-green-50 text-green-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
                       onClick={() =>
                         navigate(`/dashboard/teacher/assignments/${item.material_id}/detail`, { state: { status: "Đã chấm", class_id: item.class_id } })
                       }
@@ -163,7 +165,7 @@ const getSubmissionStats = (subs) => {
                     </div>
 
                     <div
-                      className="bg-red-200 text-red-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
+                      className="bg-red-50 text-red-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
                       onClick={() =>
                         navigate(`/dashboard/teacher/assignments/${item.material_id}/detail`, { state: { status: "Chưa nộp", class_id: item.class_id } })
                       }
@@ -173,7 +175,7 @@ const getSubmissionStats = (subs) => {
                     </div>
 
                     <div
-                      className="bg-blue-200 text-blue-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
+                      className="bg-blue-50 text-blue-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
                       onClick={() =>
                         navigate(`/dashboard/teacher/assignments/${item.material_id}/detail`, { state: { status: "Đã nộp", class_id: item.class_id } })
                       }
@@ -183,7 +185,7 @@ const getSubmissionStats = (subs) => {
                     </div>
 
                     <div
-                      className="bg-yellow-200 text-yellow-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
+                      className="bg-yellow-50 text-yellow-800 px-4 py-2 rounded font-semibold text-center flex-1 min-w-[120px] cursor-pointer"
                       onClick={() =>
                         navigate(`/dashboard/teacher/assignments/${item.material_id}/detail`, { state: { status: "Nộp trễ", class_id: item.class_id } })
                       }
@@ -214,7 +216,9 @@ const getSubmissionStats = (subs) => {
       {/* Danh sách Tài liệu */}
       <div className="space-y-6 mt-8">
         <h2 className="text-xl font-semibold mb-4">| Danh sách Tài liệu</h2>
-        <p className="mb-4 text-gray-700 font-semibold">Tổng số tài liệu: {taiLieus.length}</p>
+        <p className="mb-4 text-gray-900 font-semibold inline-block bg-blue-200 px-3 py-1 rounded">
+          Tổng số tài liệu: {taiLieus.length}
+        </p>
         {taiLieus.length === 0 ? (
           <p className="text-gray-600 italic">Chưa có tài liệu nào.</p>
         ) : (
@@ -225,23 +229,29 @@ const getSubmissionStats = (subs) => {
             const vocabCount = flashcards.filter(f => String(f.material_id) === String(doc.material_id)).length;
 
             return (
-              <Card key={doc.material_id} className="relative">
-                <h3 className="text-xl font-bold text-center mb-2">{cls?.class_name || "Không rõ lớp"} - {courseName || "Không rõ khóa"}</h3>
-                <p className="text-lg font-semibold text-gray-800 mb-2">[{category}] {doc.title}</p>
-                <div className="text-sm text-gray-600 mb-2">Ngày gửi: {doc.created_at}</div>
+              <Card key={doc.material_id} className="relative flex gap-4 p-4 items-start">
+                <img
+                  src={tailieu}
+                  alt={doc.title}
+                  className="w-32 h-32 object-cover rounded mx-auto my-auto"
+                />
 
-                {category === "Từ vựng" && vocabCount > 0 && (
-                  <div className="mb-2 flex items-center gap-2">
-                    <span>Số lượng thẻ từ vựng: {vocabCount}</span>
-                    <Button onClick={() => handleOpenModal(doc.material_id)}>
-                      <FiList className="w-5 h-5" />
-                    </Button>
-                  </div>
-                )}
-
-                {category !== "Từ vựng" && <p className="text-gray-700 mb-2">{doc.description}</p>}
-                {doc.file_url && <a href={`/${doc.file_url}`} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline mb-1 block">Xem file</a>}
-                {doc.url && <a href={doc.url} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">Xem URL</a>}
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-2">{cls?.class_name || "Không rõ lớp"} - {courseName || "Không rõ khóa"}</h3>
+                  <p className="text-lg font-semibold text-gray-800 mb-2">[{category}] {doc.title}</p>
+                  <div className="text-sm text-gray-600 mb-2">Ngày gửi: {doc.created_at}</div>
+                  {category === "Từ vựng" && vocabCount > 0 && (
+                    <div className="mb-2 flex items-center gap-2">
+                      <span>Số lượng thẻ từ vựng: {vocabCount}</span>
+                      <Button onClick={() => handleOpenModal(doc.material_id)}>
+                        <FiList className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  )}
+                  {category !== "Từ vựng" && <p className="text-gray-700 mb-2">{doc.description}</p>}
+                  {doc.file_url && <a href={`/${doc.file_url}`} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline mb-1 block">Xem file</a>}
+                  {doc.url && <a href={doc.url} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">Xem URL</a>}
+                </div>
 
                 <div className="absolute bottom-4 right-4">
                   <Button variant="danger" onClick={() => handleDelete(doc)}>Xóa</Button>
@@ -266,7 +276,13 @@ const getSubmissionStats = (subs) => {
               <div key={f.flashcard_id} className="border-b py-2">
                 <div className="font-semibold">{f.term}</div>
                 <div className="text-gray-700">{f.definition}</div>
-                {f.image_url && <img src={`/${f.image_url}`} alt={f.term} className="w-20 h-20 object-contain mt-1" />}
+                {f.image_url && (
+                  <img
+                    src={book}
+                    alt={f.term}
+                    className="w-20 h-20 object-contain mt-1"
+                  />
+                )}
               </div>
             ))}
           </div>

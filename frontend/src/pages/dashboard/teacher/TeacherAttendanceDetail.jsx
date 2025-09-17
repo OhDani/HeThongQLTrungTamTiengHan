@@ -160,7 +160,7 @@ const TeacherAttendanceDetail = () => {
     ];
 
     return (
-        <div className="flex h-screen" style={{ backgroundColor: "#F7FAFC" }}>
+        <div className="flex h-screen bg-blue-50" >
             <div className="flex-1 flex flex-col overflow-hidden">
                 <main className="flex-1 overflow-x-hidden overflow-y-auto p-4">
                     <h1 className="text-3xl font-bold mb-4">Chi tiết điểm danh lớp {classId}</h1>

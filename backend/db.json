@@ -2123,20 +2123,6 @@
       "id": "4cfc"
     },
     {
-      "id": "4939",
-      "material_id": 1757840474939,
-      "class_id": 4,
-      "user_id": 6,
-      "title": "bài test",
-      "description": "làm",
-      "file_url": null,
-      "url": "htt...1",
-      "due_date": "2025-09-27",
-      "type": "Bài tập",
-      "category": null,
-      "created_at": "2025-09-14 09:01:14"
-    },
-    {
       "id": "1627",
       "material_id": 1757842261627,
       "class_id": 4,
@@ -2165,20 +2151,6 @@
       "created_at": "2025-09-14 10:10:16"
     },
     {
-      "id": "7441",
-      "material_id": 1757846787441,
-      "class_id": 4,
-      "user_id": 6,
-      "title": "sd",
-      "description": "dfff",
-      "file_url": null,
-      "url": "qSQW",
-      "due_date": "2025-09-05",
-      "type": "Bài tập",
-      "category": null,
-      "created_at": "2025-09-14 10:46:27"
-    },
-    {
       "id": "5788",
       "material_id": 1757847005788,
       "class_id": 4,
@@ -2193,18 +2165,18 @@
       "created_at": "2025-09-14 10:50:05"
     },
     {
-      "id": "1890",
-      "material_id": 1757861781890,
-      "class_id": 4,
+      "id": "2971",
+      "material_id": 1758119892971,
+      "class_id": 2,
       "user_id": 6,
-      "title": "sffdr",
-      "description": "trhtht",
+      "title": "Bài tập tuần 5",
+      "description": "viết bài văn miêu tả cô giáo ",
       "file_url": null,
-      "url": "htjt",
-      "due_date": "2025-09-06",
+      "url": "https://chatgpt.com/?openaicom_referred=true",
+      "due_date": "2025-09-24",
       "type": "Bài tập",
       "category": null,
-      "created_at": "2025-09-14 14:56:21"
+      "created_at": "2025-09-17 14:38:12"
     }
   ],
   "flashcards": [

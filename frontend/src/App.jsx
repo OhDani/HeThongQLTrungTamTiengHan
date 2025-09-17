@@ -8,6 +8,9 @@ import TeacherAttendance from "./pages/dashboard/teacher/TeacherAttendance.jsx";
 import TeacherAttendanceDetail from "./pages/dashboard/teacher/TeacherAttendanceDetail.jsx";
 import TeacherAssignmentPage from "./pages/dashboard/teacher/TeacherAssignmentPage.jsx";
 import TeacherAssignmentPageDetail from "./pages/dashboard/teacher/TeacherAssignmentPageDetail.jsx";
+import TeacherSchedulePage from "./pages/dashboard/teacher/TeacherSchedulePage.jsx";
+import TeacherFeedback from "./pages/dashboard/teacher/TeacherFeedback.jsx";
+import TeacherNotifications from "./pages/dashboard/teacher/TeacherNotifications.jsx";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import { useAuth } from "./contexts/AuthContext";
 import "./App.css";
@@ -24,46 +27,52 @@ import StudentMaterials from "./pages/dashboard/student/StudentMaterials.jsx";
 import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
 import StudentFeedback from "./pages/dashboard/student/StudentFeedback.jsx";
 import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
+import { SearchProvider } from "./contexts/SearchContext";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? children : <Navigate to="/login" replace />;
+
 };
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
+    <SearchProvider>
 
-      <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
-        <Route path="student/overview" element={<StudentOverview />} />
-        <Route path="student/schedule" element={<StudentSchedulePage />} />
-        <Route path="student/grades" element={<StudentGradesPage />} />
-        <Route path="student/materials" element={<StudentMaterials />} />
-        <Route path="student/flashcards/:materialId" element={<AllVocabPage />} />
-        <Route path="student/feedback" element={<StudentFeedback />} />
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
 
-        <Route path="student/profile" element={<UserProfile />} />
-        <Route path="admin/employees" element={<AdminEmployees />} />
-        <Route path="admin/overview" element={<AdminOverview />} />
-        <Route path="admin/feedback" element={<AdminFeedback />} />
-        <Route path="admin/notification" element={<AdminNotification />} />
+        <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
+          <Route path="student/overview" element={<StudentOverview />} />
+          <Route path="student/schedule" element={<StudentSchedulePage />} />
+          <Route path="student/grades" element={<StudentGradesPage />} />
+          <Route path="student/materials" element={<StudentMaterials />} />
+          <Route path="student/flashcards/:materialId" element={<AllVocabPage />} />
+          <Route path="student/feedback" element={<StudentFeedback />} />
 
-        <Route path="teacher/overview" element={<TeacherOverview />} />
-        <Route path="teacher/profile" element={<UserProfile />} />
-        <Route path="teacher/classes" element={<TeacherClassList />} />
-        <Route path="teacher/class-students/:classId" element={<TeacherClassStudents />} />
-        <Route path="teacher/enter-grades/:classId" element={<TeacherEnterGrades />} />
-        <Route path="teacher/attendance" element={<TeacherAttendance />} />
-        <Route path="teacher/attendance/:classId" element={<TeacherAttendanceDetail />} />
-        <Route path="teacher/assignments" element={<TeacherAssignmentPage />} />
-        <Route path="teacher/assignments/:materialId/detail" element={<TeacherAssignmentPageDetail />} />
+          <Route path="student/profile" element={<UserProfile />} />
+          <Route path="admin/employees" element={<AdminEmployees />} />
+          <Route path="admin/overview" element={<AdminOverview />} />
+          <Route path="admin/feedback" element={<AdminFeedback />} />
+          <Route path="admin/notification" element={<AdminNotification />} />
 
+          <Route path="teacher/overview" element={<TeacherOverview />} />
+          <Route path="teacher/profile" element={<UserProfile />} />
+          <Route path="teacher/classes" element={<TeacherClassList />} />
+          <Route path="teacher/class-students/:classId" element={<TeacherClassStudents />} />
+          <Route path="teacher/enter-grades/:classId" element={<TeacherEnterGrades />} />
+          <Route path="teacher/attendance" element={<TeacherAttendance />} />
+          <Route path="teacher/attendance/:classId" element={<TeacherAttendanceDetail />} />
+          <Route path="teacher/assignments" element={<TeacherAssignmentPage />} />
+          <Route path="teacher/assignments/:materialId/detail" element={<TeacherAssignmentPageDetail />} />
+          <Route path="teacher/schedule" element={<TeacherSchedulePage />} />
+          <Route path="teacher/feedback" element={<TeacherFeedback />} />
+          <Route path="teacher/notification" element={<TeacherNotifications />} />
+          
+        </Route>
 
-
-      </Route>
-
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </SearchProvider>
   );
 }

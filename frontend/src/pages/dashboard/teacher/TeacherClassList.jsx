@@ -6,6 +6,7 @@ import Button from '../../../components/common/Button';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import { userApi, classApi, courseApi, enrollmentApi } from '../../../services/api';
 import { useAuth } from '../../../contexts/AuthContext';
+import { useSearch } from "../../../contexts/SearchContext";
 
 const TeacherClassList = () => {
   const { user } = useAuth();
@@ -13,7 +14,9 @@ const TeacherClassList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { searchTerm } = useSearch();
 
+  // Fetch dữ liệu ban đầu
   useEffect(() => {
     if (!user) {
       setError("Vui lòng đăng nhập để xem dữ liệu.");
@@ -55,6 +58,20 @@ const TeacherClassList = () => {
     fetchData();
   }, [user]);
 
+  // Search theo searchTerm
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  useEffect(() => {
+    if (searchTerm) {
+      const filtered = courses.filter(cls =>
+        cls.class_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        cls.course_name?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCourses(filtered);
+    } else {
+      setFilteredCourses(courses);
+    }
+  }, [searchTerm, courses]);
+
   if (loading) return <LoadingSpinner />;
   if (error) return <Alert message={error} type="error" />;
 
@@ -65,35 +82,22 @@ const TeacherClassList = () => {
     { key: 'course_name', label: 'Khóa học', render: (item) => <div className="text-center">{item.course_name}</div> },
     { key: 'schedule', label: 'Lịch học', render: (item) => <div className="text-center">{item.schedule}</div> },
     { key: 'room', label: 'Phòng', render: (item) => <div className="text-center">{item.room}</div> },
-    {
-      key: 'studentCount',
-      label: 'Số lượng học viên',
-      render: (item) => <div className="text-center text-blue-600 font-semibold">{item.studentCount}</div>
-    },
-    {
-      key: 'action',
-      label: 'Hành động',
-      render: (item) => (
-        <div className="flex justify-center gap-2">
-          <Button onClick={() => navigate(`/dashboard/teacher/class-students/${item.class_id}`)}>
-            Xem học viên
-          </Button>
-          <Button onClick={() => navigate(`/dashboard/teacher/attendance/${item.class_id}`)}>
-            Xem điểm danh
-          </Button>
-        </div>
-      ),
-    },
+    { key: 'studentCount', label: 'Số lượng học viên', render: (item) => <div className="text-center text-blue-600 font-semibold">{item.studentCount}</div> },
+    { key: 'action', label: 'Hành động', render: (item) => (
+      <div className="flex justify-center gap-2">
+        <Button onClick={() => navigate(`/dashboard/teacher/class-students/${item.class_id}`)}>Xem học viên</Button>
+        <Button onClick={() => navigate(`/dashboard/teacher/attendance/${item.class_id}`)}>Xem điểm danh</Button>
+      </div>
+    )}
   ];
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-blue-50">
       <main className="flex-1 overflow-x-hidden overflow-y-auto p-4">
         <h1 className="text-3xl font-bold mb-6">Danh sách lớp học</h1>
-
         <Table
           columns={columns}
-          data={courses}
+          data={filteredCourses}
           rowClassName={(index) => (index % 2 === 0 ? 'bg-gray-100' : 'bg-white')}
         />
       </main>

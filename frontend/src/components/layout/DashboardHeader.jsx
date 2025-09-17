@@ -1,36 +1,50 @@
-import React, { Fragment } from 'react';
-import { Menu, Transition } from '@headlessui/react';
-import { BellIcon, Cog6ToothIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import avatar from '../../assets/avatar.jpg';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  BellIcon,
+  Cog6ToothIcon,
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
+import avatar from "../../assets/avatar.jpg";
+import { useAuth } from "../../contexts/AuthContext";
+import { useSearch } from "../../contexts/SearchContext";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 const DashboardHeader = () => {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { searchTerm, setSearchTerm } = useSearch();
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const dropdownItems = [
-    { label: 'Hồ sơ của bạn', action: () => navigate('/dashboard/profile') },
-    { label: 'Cài đặt', action: () => navigate('/dashboard/settings') },
-    { label: 'Đăng xuất', action: logout },
+    { label: "Hồ sơ của bạn", action: () => {} }, // điều hướng riêng
+    { label: "Cài đặt", action: () => {} },
+    { label: "Đăng xuất", action: logout },
   ];
 
   return (
     <header className="bg-white shadow-sm px-6 py-3 flex items-center justify-between">
       <div className="text-2xl font-semibold text-gray-800">Dashboard</div>
 
-      <div className="flex-1 px-25 my-1">
+      {/* Search input */}
+      <div className="flex-1 mx-6 my-1 relative">
         <input
           type="text"
+          value={searchTerm}
+          onChange={handleChange}
           placeholder="Tìm kiếm..."
-          className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+        <MagnifyingGlassIcon className="absolute right-2 top-2.5 h-5 w-5 text-gray-500" />
       </div>
 
+      {/* Icons & Dropdown */}
       <div className="flex items-center space-x-4">
         {[BellIcon, Cog6ToothIcon].map((Icon, idx) => (
           <button
@@ -48,7 +62,9 @@ const DashboardHeader = () => {
               alt="avatar"
               className="h-8 w-8 rounded-full object-cover border-1 border-black"
             />
-            <span className="text-gray-700 font-medium hidden md:block">{user?.full_name || user?.username}</span>
+            <span className="text-gray-700 font-medium hidden md:block">
+              {user?.full_name || user?.username}
+            </span>
             <ChevronDownIcon className="h-5 w-5 text-gray-400" />
           </Menu.Button>
 
@@ -68,8 +84,8 @@ const DashboardHeader = () => {
                     <button
                       onClick={item.action}
                       className={classNames(
-                        active ? 'bg-gray-100' : '',
-                        'w-full text-left px-4 py-2 text-sm text-gray-700'
+                        active ? "bg-gray-100" : "",
+                        "w-full text-left px-4 py-2 text-sm text-gray-700"
                       )}
                     >
                       {item.label}

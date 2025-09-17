@@ -79,7 +79,7 @@ const TeacherAssignmentPageDetail = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen"><h1 className="text-2xl font-bold mb-6">
+    <div className="p-6 bg-blue-50 min-h-screen"><h1 className="text-2xl font-bold mb-6">
       Danh sách học sinh: {statusFilter || "Tất cả"}
     </h1>
 
