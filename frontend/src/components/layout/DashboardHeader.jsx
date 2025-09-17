@@ -4,25 +4,28 @@ import {
   BellIcon,
   Cog6ToothIcon,
   ChevronDownIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import avatar from "../../assets/avatar.jpg";
 import { useAuth } from "../../contexts/AuthContext";
+import { useSearch } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
 import { getNotifications } from "../../services/notificationService";
 import NotificationSidebar from "./NotificationSidebar";
 import SettingsSidebar from "./Settings";
-import { useSearch } from "../../contexts/SearchContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const DashboardHeader = ({ searchTerm, setSearchTerm }) => {
+const DashboardHeader = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const { searchTerm, setSearchTerm } = useSearch();
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
+  };
 
   const [notifications, setNotifications] = useState([]);
   const [showNoti, setShowNoti] = useState(false);
@@ -37,7 +40,6 @@ const DashboardHeader = ({ searchTerm, setSearchTerm }) => {
     };
     fetchNoti();
   }, [user]);
-  };
 
   const dropdownItems = [
     { label: "Hồ sơ của bạn", action: () => navigate("/dashboard/profile") },
@@ -91,9 +93,6 @@ const DashboardHeader = ({ searchTerm, setSearchTerm }) => {
             <span className="text-gray-700 font-medium hidden md:block">
               {user?.full_name || user?.username}
             </span>
-            <span className="text-gray-700 font-medium hidden md:block">
-              {user?.full_name || user?.username}
-            </span>
             <ChevronDownIcon className="h-5 w-5 text-gray-400" />
           </Menu.Button>
 
@@ -113,8 +112,6 @@ const DashboardHeader = ({ searchTerm, setSearchTerm }) => {
                     <button
                       onClick={item.action}
                       className={classNames(
-                        active ? "bg-gray-100" : "",
-                        "w-full text-left px-4 py-2 text-sm text-gray-700"
                         active ? "bg-gray-100" : "",
                         "w-full text-left px-4 py-2 text-sm text-gray-700"
                       )}

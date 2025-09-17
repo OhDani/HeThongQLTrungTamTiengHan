@@ -4,8 +4,8 @@ import Input from "../../../components/common/Input";
 import Select from "../../../components/common/Select";
 import TextArea from "../../../components/common/TextArea";
 import { useAuth } from "../../../contexts/AuthContext";
-import Toast from "../../../components/common/Toast"; 
 import { getStudentClasses, createFeedback } from "../../../services/studentService";
+import Toast from "../../../components/common/toast";
 
 const StudentFeedback = () => {
   const { user } = useAuth();

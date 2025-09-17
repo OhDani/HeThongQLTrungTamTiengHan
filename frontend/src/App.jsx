@@ -30,6 +30,7 @@ import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 import StudentAssignment from "./pages/dashboard/student/StudentAssignment.jsx";
 
 import ManagerStudent from "./pages/dashboard/manager/ManagerStudent.jsx";
+import { SearchProvider } from "./contexts/SearchContext.jsx";
 
 
 const PrivateRoute = ({ children }) => {
