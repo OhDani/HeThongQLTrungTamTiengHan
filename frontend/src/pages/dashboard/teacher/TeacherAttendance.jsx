@@ -171,7 +171,7 @@ const TeacherAttendance = () => {
     ];
 
     return (
-        <div className="flex h-screen" style={{ backgroundColor: "#F7FAFC" }}>
+        <div className="flex h-screen bg-blue-50" >
             <div className="flex-1 flex flex-col overflow-hidden">
                 <main className="flex-1 overflow-x-hidden overflow-y-auto p-4">
                     {(error || successMessage) && (

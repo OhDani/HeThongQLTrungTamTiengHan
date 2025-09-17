@@ -4,9 +4,11 @@ import {
   BellIcon,
   Cog6ToothIcon,
   ChevronDownIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import avatar from "../../assets/avatar.jpg";
 import { useAuth } from "../../contexts/AuthContext";
+import { useSearch } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
 import { getNotifications } from "../../services/notificationService";
 import NotificationSidebar from "./NotificationSidebar";
@@ -16,9 +18,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const DashboardHeader = ({ searchTerm, setSearchTerm }) => {
+const DashboardHeader = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { searchTerm, setSearchTerm } = useSearch();
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const [notifications, setNotifications] = useState([]);
   const [showNoti, setShowNoti] = useState(false);
@@ -43,16 +50,19 @@ const DashboardHeader = ({ searchTerm, setSearchTerm }) => {
     <header className="bg-white shadow-sm px-6 py-3 flex items-center justify-between">
       <div className="text-2xl font-semibold text-gray-800">Dashboard</div>
 
-      <div className="flex-1 px-5 my-1">
+      {/* Search input */}
+      <div className="flex-1 mx-6 my-1 relative">
         <input
           type="text"
-          placeholder="Tìm kiếm..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={handleChange}
+          placeholder="Tìm kiếm..."
+          className="w-full border rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+        <MagnifyingGlassIcon className="absolute right-2 top-2.5 h-5 w-5 text-gray-500" />
       </div>
 
+      {/* Icons & Dropdown */}
       <div className="flex items-center space-x-4">
         <button
           className="relative p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
