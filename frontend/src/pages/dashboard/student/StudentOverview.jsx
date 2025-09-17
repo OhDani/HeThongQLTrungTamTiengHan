@@ -156,12 +156,12 @@ const StudentOverview = ({ studentId = 1 }) => {
         </Card>
 
         {/* Cột phải */}
-        <Card className="bg-white shadow-md rounded-xl p-6">
+        <Card className="bg-white shadow-md rounded-xl p-6 flex flex-col">
           <h3 className="font-bold mb-4">📅 Lịch</h3>
           <Calendar
             onChange={setValue}
             value={value}
-            className="rounded-xl overflow-hidden"
+            className="rounded-xl overflow-hidden mx-auto"
             tileClassName={({ date }) => {
               const ev = getEventByDate(date);
 

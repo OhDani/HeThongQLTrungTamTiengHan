@@ -28,6 +28,7 @@ import AllVocabPage from "./pages/dashboard/student/AllVocabPage.jsx";
 import StudentFeedback from "./pages/dashboard/student/StudentFeedback.jsx";
 import UserProfile from "./pages/dashboard/shared/UserProfile.jsx";
 import StudentAssignment from "./pages/dashboard/student/StudentAssignment.jsx";
+import Chat from "./pages/dashboard/shared/Chat.jsx";
 
 import ManagerStudent from "./pages/dashboard/manager/ManagerStudent.jsx";
 import { SearchProvider } from "./contexts/SearchContext.jsx";
@@ -46,16 +47,18 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
 
-      <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
-        <Route path="student/overview" element={<StudentOverview />} />
-        <Route path="student/schedule" element={<StudentSchedulePage />} />
-        <Route path="student/grades" element={<StudentGradesPage />} />
-        <Route path="student/materials" element={<StudentMaterials />} />
-        <Route path="student/materials/flashcards/:materialId" element={<AllVocabPage />} />
-        <Route path="student/assignments" element={<StudentAssignment />} />
-        <Route path="student/feedback" element={<StudentFeedback />} />
+        <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
 
+          <Route path="student/overview" element={<StudentOverview />} />
           <Route path="student/profile" element={<UserProfile />} />
+          <Route path="student/schedule" element={<StudentSchedulePage />} />
+          <Route path="student/grades" element={<StudentGradesPage />} />
+          <Route path="student/materials" element={<StudentMaterials />} />
+          <Route path="student/materials/flashcards/:materialId" element={<AllVocabPage />} />
+          <Route path="student/assignments" element={<StudentAssignment />} />
+          <Route path="student/feedback" element={<StudentFeedback />} />
+
+          <Route path="admin/profile" element={<UserProfile />} />
           <Route path="admin/employees" element={<AdminEmployees />} />
           <Route path="admin/overview" element={<AdminOverview />} />
           <Route path="admin/feedback" element={<AdminFeedback />} />
@@ -76,7 +79,12 @@ export default function App() {
 
           <Route path="manager/profile" element={<UserProfile />} />
           <Route path="manager/students" element={<ManagerStudent />} />
-          
+
+          <Route path="admin/messages" element={<Chat />} />
+          <Route path="teacher/messages" element={<Chat />} />
+          <Route path="student/messages" element={<Chat />} />
+          <Route path="manager/messages" element={<Chat />} />
+
         </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />
