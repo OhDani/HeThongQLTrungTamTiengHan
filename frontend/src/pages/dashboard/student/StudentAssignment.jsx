@@ -113,7 +113,7 @@ const StudentAssignment = () => {
   const total = assignments.length;
   const countNotSubmitted = assignments.filter((a) => a.status === STATUS.NOT_SUBMITTED).length;
   const countSubmitted = assignments.filter((a) => a.status === STATUS.SUBMITTED).length;
-  const countGraded = assignments.filter((a) => a.status === STATUS.GRADED).length;
+  const countGraded = assignments.filter(a => !!a.grade).length;
   const countLateSubmission = assignments.filter((a) => a.status === STATUS.LATE_SUBMISSION).length;
   const countLate = assignments.filter((a) => a.status === STATUS.LATE).length;
 
